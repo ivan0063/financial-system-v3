@@ -10,6 +10,6 @@ public class FixedExpense {
     private Double monthlyCost;
     private Integer paymentDay;
     private Boolean active;
-    //DebtSysUser debtSysUser,
-    //FixedExpenseCatalog fixedExpenseCatalog,
+    private SystemUser debtSysUser;
+    private FixedExpenseCatalog fixedExpenseCatalog;
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.time.Instant;
 
 @Setter @Getter
-public class DebtSysUser {
+public class SystemUser {
     private String email;
     private String name;
     private Double salary;
