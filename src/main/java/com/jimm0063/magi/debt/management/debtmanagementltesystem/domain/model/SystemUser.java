@@ -5,7 +5,8 @@ import lombok.Setter;
 
 import java.time.Instant;
 
-@Setter @Getter
+@Setter
+@Getter
 public class SystemUser {
     private String email;
     private String name;

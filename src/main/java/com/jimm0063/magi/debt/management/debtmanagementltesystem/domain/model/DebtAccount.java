@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import java.time.Instant;
 
-@Setter @Getter
+@Setter
+@Getter
 public class DebtAccount {
     private String code;
     private String name;

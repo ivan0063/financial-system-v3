@@ -3,7 +3,8 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Getter
+@Setter
+@Getter
 public class AlmostCompletedDebtsDto {
     private String code;
     private String description;

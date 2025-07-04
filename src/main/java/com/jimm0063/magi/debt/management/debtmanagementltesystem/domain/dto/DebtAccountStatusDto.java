@@ -7,7 +7,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter @Getter
+@Setter
+@Getter
 public class DebtAccountStatusDto {
     private DebtAccount debtAccount;
     private List<Debt> debts;

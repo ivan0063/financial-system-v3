@@ -23,11 +23,11 @@ public class DebtService implements FilterDebtsUseCase, PayOffDebtAccount {
         List<Debt> debtAccountDebts = this.debtRepository.findAllDebtsByDebtAccountAndActiveTrue(debtAccountCode);
         List<Debt> resultDebts = new ArrayList<>(accountStatementDebts);
 
-        if(debtAccountDebts.isEmpty()) return accountStatementDebts;
+        if (debtAccountDebts.isEmpty()) return accountStatementDebts;
 
-        for (Debt accountStatementDebt :  accountStatementDebts)
+        for (Debt accountStatementDebt : accountStatementDebts)
             for (Debt debtAccountDebt : debtAccountDebts)
-                if(DebtComparatorUtil.compareDebts(accountStatementDebt, debtAccountDebt))
+                if (DebtComparatorUtil.compareDebts(accountStatementDebt, debtAccountDebt))
                     resultDebts.remove(accountStatementDebt);
 
         return resultDebts;

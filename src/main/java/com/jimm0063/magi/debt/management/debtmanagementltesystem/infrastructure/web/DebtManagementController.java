@@ -29,7 +29,7 @@ public class DebtManagementController {
     public ResponseEntity addDebtsToDebtAccount(@PathVariable String debtAccountCode,
                                                 @RequestBody List<Debt> debts) {
         DebtAccount debtAccount = this.debtAccountRepository.findDebtAccountByCodeAndActiveTrue(debtAccountCode)
-                        .orElseThrow(() -> new EntityNotFoundException("debtAccount " + debtAccountCode + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("debtAccount " + debtAccountCode + " not found"));
 
         return ResponseEntity.ok(debtRepository.saveAll(debts, debtAccount));
     }

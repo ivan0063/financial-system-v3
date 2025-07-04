@@ -8,5 +8,6 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface FinancialProviderMapper {
     FinancialProviderEntity toEntity(FinancialProvider financialProvider);
+
     FinancialProvider toModel(FinancialProviderEntity financialProviderEntity);
 }

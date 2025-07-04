@@ -8,5 +8,6 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface FixedExpenseMapper {
     FixedExpenseEntity toEntity(FixedExpense fixedExpenseEntity);
+
     FixedExpense toModel(FixedExpenseEntity fixedExpenseEntity);
 }

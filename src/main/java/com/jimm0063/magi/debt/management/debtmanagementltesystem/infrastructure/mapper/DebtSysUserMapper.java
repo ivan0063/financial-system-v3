@@ -8,5 +8,6 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DebtSysUserMapper {
     DebtSysUserEntity toEntity(SystemUser systemUser);
+
     SystemUser toModel(DebtSysUserEntity debtSysUserEntity);
 }

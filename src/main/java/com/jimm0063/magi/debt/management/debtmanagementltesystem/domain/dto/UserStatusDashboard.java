@@ -7,7 +7,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter @Getter
+@Setter
+@Getter
 public class UserStatusDashboard {
     private Double salary;
     private Double savings;

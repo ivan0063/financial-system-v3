@@ -38,9 +38,9 @@ public class FinancialStatusService implements GetFinancialStatus {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         List<DebtAccount> userDebtAccounts = this.financialProviderRepository.findAllBySystemUser(user).stream()
-                        .map(debtAccountRepository::findAllByFinancialProvider)
-                        .flatMap(Collection::stream)
-                        .toList();
+                .map(debtAccountRepository::findAllByFinancialProvider)
+                .flatMap(Collection::stream)
+                .toList();
 
         List<Debt> userDebts = userDebtAccounts.stream()
                 .map(DebtAccount::getCode)
