@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 public class DebtAccountStatusDto {
     private DebtAccount debtAccount;
+    private Double monthPayment;
     private List<Debt> debts;
     private List<AlmostCompletedDebtsDto> almostCompletedDebts;
 }

@@ -43,10 +43,16 @@ public class DebtAccountService implements DebtAccountStatusUseCase {
                 })
                 .toList();
 
+
+        Double monthAmount = debts.stream()
+                .mapToDouble(Debt::getMonthlyPayment)
+                .sum();
+
         DebtAccountStatusDto debtAccountStatusDto = new DebtAccountStatusDto();
         debtAccountStatusDto.setDebtAccount(debtAccount);
         debtAccountStatusDto.setDebts(debts);
         debtAccountStatusDto.setAlmostCompletedDebts(almostCompletedDebts);
+        debtAccountStatusDto.setMonthPayment(monthAmount);
 
         return debtAccountStatusDto;
     }
