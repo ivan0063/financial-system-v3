@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: debt-management-lte-system
+
+  datasource:
+    #driver-class-name: ${SPRING_DB_DRIVE}
+    url: ${SPRING_DB_URL}
+    username: ${SPRING_DB_USER}
+    password: ${SPRING_DB_PASSWORD}
+    hikari:
+      schema: ${SPRING_DB_SCHEMA}
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB

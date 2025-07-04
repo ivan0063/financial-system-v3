@@ -1,0 +1,9 @@
+package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in;
+
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
+
+import java.util.Optional;
+
+public interface DebtAccountRepository {
+    Optional<DebtAccount> findDebtAccountByCode(String code);
+}
