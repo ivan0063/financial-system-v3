@@ -1,6 +1,5 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.configuration;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
