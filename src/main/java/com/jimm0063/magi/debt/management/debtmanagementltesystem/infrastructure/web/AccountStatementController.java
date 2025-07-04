@@ -4,7 +4,6 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.Ac
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.ExtractFromFileUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FilterDebtsUseCase;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtJpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

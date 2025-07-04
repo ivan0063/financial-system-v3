@@ -3,10 +3,8 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.se
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.AccountStatementType;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.FileTypeEnum;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.AccountStatementDataExtractionUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.ExtractFromFileUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.adapter.AccountStatementFactory;
 import org.springframework.stereotype.Service;

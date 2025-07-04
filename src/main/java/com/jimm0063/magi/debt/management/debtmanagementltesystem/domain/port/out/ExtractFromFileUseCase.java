@@ -2,7 +2,6 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.ou
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.AccountStatementType;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.FileTypeEnum;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

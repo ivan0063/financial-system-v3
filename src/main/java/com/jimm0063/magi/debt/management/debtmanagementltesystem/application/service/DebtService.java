@@ -20,14 +20,14 @@ public class DebtService implements FilterDebtsUseCase {
     @Override
     public List<Debt> filterAccountStatementDebts(List<Debt> accountStatementDebts, String debtAccountCode) {
         List<Debt> debtAccountDebts = this.debtRepository.findAllDebtsByDebtAccountAndActiveTrue(debtAccountCode);
-        List<Debt> resultDebts = new ArrayList<>();
+        List<Debt> resultDebts = new ArrayList<>(accountStatementDebts);
 
         if(debtAccountDebts.isEmpty()) return accountStatementDebts;
 
         for (Debt accountStatementDebt :  accountStatementDebts)
             for (Debt debtAccountDebt : debtAccountDebts)
-                if(!DebtComparatorUtil.compareDebts(accountStatementDebt, debtAccountDebt))
-                    resultDebts.add(accountStatementDebt);
+                if(DebtComparatorUtil.compareDebts(accountStatementDebt, debtAccountDebt))
+                    resultDebts.remove(accountStatementDebt);
 
         return resultDebts;
     }
