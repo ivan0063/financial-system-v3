@@ -19,8 +19,8 @@ public class DebtAccountRepositoryAdapter implements DebtAccountRepository {
     }
 
     @Override
-    public Optional<DebtAccount> findDebtAccountByCode(String code) {
-        return this.debtAccountJpaRepository.findDebtAccountByCode(code)
+    public Optional<DebtAccount> findDebtAccountByCodeAndActiveTrue(String code) {
+        return this.debtAccountJpaRepository.findDebtAccountByCodeAndActiveTrue(code)
                 .map(this.debtAccountMapper::toModel);
     }
 }

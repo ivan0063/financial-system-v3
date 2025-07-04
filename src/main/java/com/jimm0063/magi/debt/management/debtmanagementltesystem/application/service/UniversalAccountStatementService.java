@@ -50,17 +50,17 @@ public class UniversalAccountStatementService implements AccountStatementDataExt
                 if (startParsing) {
                     Matcher matcher = pattern.matcher(line.trim());
                     if (matcher.find()) {
-                        debts.add(
-                            new Debt(
-                                null,
-                                matcher.group(2).trim(),
-                                matcher.group(1).trim(),
-                                Integer.parseInt(matcher.group(6)),
-                                Integer.parseInt(matcher.group(7)),
-                                Double.parseDouble(matcher.group(3).replace(",", "")),
-                                Double.parseDouble(matcher.group(5).replace(",", "")),null,null,true,null
-                            )
-                        );
+                        Debt debt = new Debt();
+                        debt.setId(null);
+                        debt.setDescription(matcher.group(2).trim());
+                        debt.setOperationDate(matcher.group(1).trim());
+                        debt.setCurrentInstallment(Integer.parseInt(matcher.group(6)));
+                        debt.setMaxFinancingTerm(Integer.parseInt(matcher.group(7)));
+                        debt.setOriginalAmount(Double.parseDouble(matcher.group(3).replace(",", "")));
+                        debt.setMonthlyPayment(Double.parseDouble(matcher.group(5).replace(",", "")));
+                        debt.setActive(true);
+
+                        debts.add(debt);
                     }
                 }
             }

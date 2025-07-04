@@ -5,5 +5,5 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 import java.util.Optional;
 
 public interface DebtAccountRepository {
-    Optional<DebtAccount> findDebtAccountByCode(String code);
+    Optional<DebtAccount> findDebtAccountByCodeAndActiveTrue(String code);
 }

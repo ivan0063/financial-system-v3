@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @RepositoryRestResource(collectionResourceRel = "debtAccount", path = "debtAccount")
 public interface DebtAccountJpaRepository extends JpaRepository<DebtAccountEntity, String> {
-    Optional<DebtAccountEntity> findDebtAccountByCode(String code);
+    Optional<DebtAccountEntity> findDebtAccountByCodeAndActiveTrue(String code);
 }

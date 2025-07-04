@@ -50,21 +50,16 @@ public class ExcelAccountStatementService implements AccountStatementDataExtract
                 double initialDebtAmount = monthAmount * monthsFinanced;
 
                 // Create Debt object
-                debts.add(
-                    new Debt(
-                        null,
-                        name,
-                        operationDate,
-                        monthsPaid,
-                        monthsFinanced,
-                        initialDebtAmount,
-                        monthAmount,
-                        null,
-                        null,
-                        true,
-                        debtAccount
-                    )
-                );
+                Debt debt = new Debt();
+                debt.setActive(true);
+                debt.setDescription(name);
+                debt.setOperationDate(operationDate);
+                debt.setMonthlyPayment(monthAmount);
+                debt.setMaxFinancingTerm(monthsFinanced);
+                debt.setCurrentInstallment(monthsPaid);
+                debt.setDebtAccount(debtAccount);
+
+                debts.add(debt);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -5,6 +5,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.PayOffDebtAccount;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,19 +16,27 @@ import java.util.List;
 public class DebtManagementController {
     private final DebtAccountRepository debtAccountRepository;
     private final DebtRepository debtRepository;
+    private final PayOffDebtAccount payOffDebtAccount;
 
-    public DebtManagementController(DebtAccountRepository debtAccountRepository, DebtRepository debtRepository) {
+    public DebtManagementController(DebtAccountRepository debtAccountRepository, DebtRepository debtRepository,
+                                    PayOffDebtAccount payOffDebtAccount) {
         this.debtAccountRepository = debtAccountRepository;
         this.debtRepository = debtRepository;
+        this.payOffDebtAccount = payOffDebtAccount;
     }
 
     @PostMapping("/add/{debtAccountCode}")
     public ResponseEntity addDebtsToDebtAccount(@PathVariable String debtAccountCode,
                                                 @RequestBody List<Debt> debts) {
-        DebtAccount debtAccount = this.debtAccountRepository.findDebtAccountByCode(debtAccountCode)
+        DebtAccount debtAccount = this.debtAccountRepository.findDebtAccountByCodeAndActiveTrue(debtAccountCode)
                         .orElseThrow(() -> new EntityNotFoundException("debtAccount " + debtAccountCode + " not found"));
 
         return ResponseEntity.ok(debtRepository.saveAll(debts, debtAccount));
+    }
+
+    @PatchMapping("/payOff/{debtAccountCode}")
+    public ResponseEntity payOffDebts(@PathVariable String debtAccountCode) {
+        return ResponseEntity.ok(payOffDebtAccount.payOffByDebtAccountCode(debtAccountCode));
     }
 
 }

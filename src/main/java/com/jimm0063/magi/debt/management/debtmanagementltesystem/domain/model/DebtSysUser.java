@@ -1,16 +1,19 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.Instant;
 
-public record DebtSysUser (
-         String email,
-         String name,
-         Double salary,
-         Double savings,
-         Instant createdAt,
-         Instant updatedAt,
-         Boolean active
-        // List<FixedExpense> fixedExpenses,
-        // List<FinancialProvider> financialProviders,
-){
+@Setter @Getter
+public class DebtSysUser {
+    private String email;
+    private String name;
+    private Double salary;
+    private Double savings;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Boolean active;
+    // List<FixedExpense> fixedExpenses,
+    // List<FinancialProvider> financialProviders,
 }

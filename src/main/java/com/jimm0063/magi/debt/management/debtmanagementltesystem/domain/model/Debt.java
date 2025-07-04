@@ -1,17 +1,21 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.Instant;
 
-public record Debt (
-    Integer id,
-    String description,
-    String operationDate,
-    Integer currentInstallment,
-    Integer maxFinancingTerm,
-    Double originalAmount,
-    Double monthlyPayment,
-    Instant createdAt,
-    Instant updatedAt,
-    Boolean active,
-    DebtAccount debtAccount
-){}
+@Setter @Getter
+public class Debt {
+    private Integer id;
+    private String description;
+    private String operationDate;
+    private Integer currentInstallment;
+    private Integer maxFinancingTerm;
+    private Double originalAmount;
+    private Double monthlyPayment;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Boolean active;
+    private DebtAccount debtAccount;
+}

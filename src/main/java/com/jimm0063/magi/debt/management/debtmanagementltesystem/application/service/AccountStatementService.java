@@ -26,7 +26,7 @@ public class AccountStatementService implements ExtractFromFileUseCase {
 
     @Override
     public List<Debt> extractDebts(MultipartFile file, String cardCode, AccountStatementType accountStatementType) throws IOException {
-        DebtAccount debtAccount = debtAccountRepository.findDebtAccountByCode(cardCode)
+        DebtAccount debtAccount = debtAccountRepository.findDebtAccountByCodeAndActiveTrue(cardCode)
                 .orElseThrow(() -> new EntityNotFoundException("Debt account not found" + cardCode));
         return accountStatementFactory.getStrategy(accountStatementType).extractDebts(file, debtAccount);
     }

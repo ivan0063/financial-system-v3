@@ -1,15 +1,18 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.Instant;
 
-public record FinancialProvider (
-         String code,
-         String name,
-         Instant createdAt,
-         Instant updatedAt,
-         Boolean active,
-         FinancialProviderCatalog financialProviderCatalog,
-         DebtSysUser debtSysUser
-        //List<DebtAccount> debtAccounts,
-){
+@Setter @Getter
+public class FinancialProvider {
+    private String code;
+    private String name;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Boolean active;
+    private FinancialProviderCatalog financialProviderCatalog;
+    private DebtSysUser debtSysUser;
+    //List<DebtAccount> debtAccounts,
 }
