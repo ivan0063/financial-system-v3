@@ -26,7 +26,7 @@ ENV SPRING_DB_SCHEMA=${SPRING_DB_SCHEMA}
 RUN mvn clean package -DskipTests
 
 # Use an official OpenJDK 17 runtime as the base image for the final stage
-FROM FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jre
 
 # Set the working directory inside the container
 WORKDIR /app
