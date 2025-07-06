@@ -1,5 +1,5 @@
 # Use an official Maven image with Java 17 as the build environment
-FROM maven:3.8.5-openjdk-17 AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -26,7 +26,7 @@ ENV SPRING_DB_SCHEMA=${SPRING_DB_SCHEMA}
 RUN mvn clean package -DskipTests
 
 # Use an official OpenJDK 17 runtime as the base image for the final stage
-FROM openjdk:17-jdk-slim
+FROM FROM eclipse-temurin:21-jre
 
 # Set the working directory inside the container
 WORKDIR /app
