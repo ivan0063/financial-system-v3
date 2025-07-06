@@ -19,7 +19,7 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Expose the port the application runs on
-EXPOSE 8888
+EXPOSE 666
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
