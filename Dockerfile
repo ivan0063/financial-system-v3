@@ -1,41 +1,25 @@
-# Use an official Maven image with Java 17 as the build environment
+# Build stage
 FROM maven:3.9.6-eclipse-temurin-21 AS builder
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the pom.xml and source code
+# Copy Maven configuration and source code
 COPY pom.xml .
 COPY src ./src
 
-# Define build arguments
-ARG SPRING_DB_DRIVE
-ARG SPRING_DB_URL
-ARG SPRING_DB_USER
-ARG SPRING_DB_PASSWORD
-ARG SPRING_DB_SCHEMA
-
-# Set environment variables using build arguments
-ENV SPRING_DB_DRIVE=${SPRING_DB_DRIVE}
-ENV SPRING_DB_URL=${SPRING_DB_URL}
-ENV SPRING_DB_USER=${SPRING_DB_USER}
-ENV SPRING_DB_PASSWORD=${SPRING_DB_PASSWORD}
-ENV SPRING_DB_SCHEMA=${SPRING_DB_SCHEMA}
-
-# Build the application
+# Build the application, skipping tests
 RUN mvn clean package -DskipTests
 
-# Use an official OpenJDK 17 runtime as the base image for the final stage
+# Runtime stage
 FROM eclipse-temurin:21-jre
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the JAR file from the build stage
-COPY --from=build /app/target/*.jar app.jar
+# Copy the built JAR from the builder stage
+COPY --from=builder /app/target/*.jar app.jar
 
-# Expose the port that the application will run on
+# Expose the port the application runs on
 EXPOSE 8888
 
-# Command to run the application
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
