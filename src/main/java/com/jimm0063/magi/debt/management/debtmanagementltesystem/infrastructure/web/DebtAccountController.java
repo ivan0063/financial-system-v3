@@ -1,5 +1,6 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.web;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.DebtAccountStatusDto;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.DebtAccountStatusUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class DebtAccountController {
     }
 
     @GetMapping("/status/{debtAccountCode}")
-    public ResponseEntity debtAccountStatus(@PathVariable("debtAccountCode") String debtAccountCode) {
+    public ResponseEntity<DebtAccountStatusDto> debtAccountStatus(@PathVariable("debtAccountCode") String debtAccountCode) {
         return ResponseEntity.ok(debtAccountStatusUseCase.getStatus(debtAccountCode));
     }
 }

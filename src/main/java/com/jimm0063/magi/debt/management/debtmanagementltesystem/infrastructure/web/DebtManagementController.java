@@ -26,7 +26,7 @@ public class DebtManagementController {
     }
 
     @PostMapping("/add/{debtAccountCode}")
-    public ResponseEntity addDebtsToDebtAccount(@PathVariable String debtAccountCode,
+    public ResponseEntity<List<Debt>> addDebtsToDebtAccount(@PathVariable String debtAccountCode,
                                                 @RequestBody List<Debt> debts) {
         DebtAccount debtAccount = this.debtAccountRepository.findDebtAccountByCodeAndActiveTrue(debtAccountCode)
                 .orElseThrow(() -> new EntityNotFoundException("debtAccount " + debtAccountCode + " not found"));
@@ -35,7 +35,7 @@ public class DebtManagementController {
     }
 
     @PatchMapping("/payOff/{debtAccountCode}")
-    public ResponseEntity payOffDebts(@PathVariable String debtAccountCode) {
+    public ResponseEntity<List<Debt>> payOffDebts(@PathVariable String debtAccountCode) {
         return ResponseEntity.ok(payOffDebtAccount.payOffByDebtAccountCode(debtAccountCode));
     }
 
