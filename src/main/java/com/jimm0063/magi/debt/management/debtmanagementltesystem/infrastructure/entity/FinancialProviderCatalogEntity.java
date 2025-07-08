@@ -1,9 +1,6 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @Getter
 public class FinancialProviderCatalogEntity implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     @OneToMany(mappedBy = "financialProviderCatalog")

@@ -35,7 +35,7 @@ public class FinancialStatusService implements GetFinancialStatus {
     @Override
     public UserStatusDashboard getUserStatus(String email) {
         SystemUser user = this.userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User " + email + " not found"));
 
         List<DebtAccount> userDebtAccounts = this.financialProviderRepository.findAllBySystemUser(user).stream()
                 .map(debtAccountRepository::findAllByFinancialProvider)

@@ -15,7 +15,7 @@ import java.time.Instant;
 @Getter
 public class DebtEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String description;
     @Column(name = "operation_date")
