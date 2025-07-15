@@ -1,20 +1,36 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.web;
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.DebtAccountStatusDto;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.DebtAccountStatusUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtAccountMapper;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.CreateDebtAccountReq;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/debt/account")
 public class DebtAccountController {
     private final DebtAccountStatusUseCase debtAccountStatusUseCase;
+    private final DebtAccountRepository debtAccountRepository;
+    private final DebtAccountMapper debtAccountMapper;
 
-    public DebtAccountController(DebtAccountStatusUseCase debtAccountStatusUseCase) {
+    public DebtAccountController(DebtAccountStatusUseCase debtAccountStatusUseCase, DebtAccountRepository debtAccountRepository, DebtAccountMapper debtAccountMapper) {
         this.debtAccountStatusUseCase = debtAccountStatusUseCase;
+        this.debtAccountRepository = debtAccountRepository;
+        this.debtAccountMapper = debtAccountMapper;
+    }
+
+    @PostMapping
+    public ResponseEntity<DebtAccount> createDebtAccount(@RequestBody CreateDebtAccountReq createDebtAccountReq) {
+
+        return ResponseEntity.ok(this.debtAccountRepository.save(debtAccountMapper.toModel(createDebtAccountReq)));
+    }
+
+    @PutMapping
+    public ResponseEntity<DebtAccount> updateDebtAccount(@RequestBody DebtAccount debtAccount) {
+        return ResponseEntity.ok(this.debtAccountRepository.save(debtAccount));
     }
 
     @GetMapping("/status/{debtAccountCode}")

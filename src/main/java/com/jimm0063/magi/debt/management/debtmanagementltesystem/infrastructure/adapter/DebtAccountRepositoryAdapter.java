@@ -3,6 +3,7 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FinancialProvider;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtAccountEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.FinancialProviderEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtAccountMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderMapper;
@@ -39,5 +40,11 @@ public class DebtAccountRepositoryAdapter implements DebtAccountRepository {
                 .stream()
                 .map(this.debtAccountMapper::toModel)
                 .toList();
+    }
+
+    @Override
+    public DebtAccount save(DebtAccount debtAccount) {
+        DebtAccountEntity debtAccountEntity = debtAccountMapper.toEntity(debtAccount);
+        return this.debtAccountMapper.toModel(debtAccountJpaRepository.save(debtAccountEntity));
     }
 }

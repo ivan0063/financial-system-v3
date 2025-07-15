@@ -48,4 +48,10 @@ public class DebtRepositoryAdapter implements DebtRepository {
         return this.debtJpaRepository.saveAllAndFlush(debt.stream().map(debtMapper::toEntity).toList())
                 .stream().map(debtMapper::toModel).collect(Collectors.toList());
     }
+
+    @Override
+    public Debt save(Debt debt) {
+        DebtEntity debtEntity = debtMapper.toEntity(debt);
+        return debtMapper.toModel(this.debtJpaRepository.save(debtEntity));
+    }
 }
