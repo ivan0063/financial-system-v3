@@ -2,11 +2,12 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "debt", path = "debt")
+//@RepositoryRestResource(collectionResourceRel = "debt", path = "debt")
+@Repository
 public interface DebtJpaRepository extends JpaRepository<DebtEntity, Integer> {
     List<DebtEntity> findAllDebtsByDebtAccount_CodeAndActiveTrue(String debtAccountCode);
 }

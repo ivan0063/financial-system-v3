@@ -4,6 +4,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Fi
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.SystemUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FinancialProviderRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtSysUserEntity;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.FinancialProviderEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtSysUserMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.FinancialProviderJpaRepository;
@@ -32,5 +33,11 @@ public class FinancialProviderRepositoryAdapter implements FinancialProviderRepo
                 .stream()
                 .map(financialProviderMapper::toModel)
                 .toList();
+    }
+
+    @Override
+    public FinancialProvider save(FinancialProvider financialProvider) {
+        FinancialProviderEntity financialProviderEntity = financialProviderMapper.toEntity(financialProvider);
+        return this.financialProviderMapper.toModel(financialProviderJpaRepository.save(financialProviderEntity));
     }
 }

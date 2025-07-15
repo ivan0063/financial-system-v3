@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface FixedExpenseRepository {
     List<FixedExpense> findAllFixedExpenseBySystemUserAndActiveTrue(SystemUser systemUser);
+
+    FixedExpense save(FixedExpense fixedExpense);
 }

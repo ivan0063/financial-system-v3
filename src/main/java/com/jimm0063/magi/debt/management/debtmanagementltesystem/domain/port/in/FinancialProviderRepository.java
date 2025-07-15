@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface FinancialProviderRepository {
     List<FinancialProvider> findAllBySystemUser(SystemUser systemUser);
+
+    FinancialProvider save(FinancialProvider financialProvider);
 }

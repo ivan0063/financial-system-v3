@@ -2,8 +2,10 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.FinancialProviderCatalogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource(collectionResourceRel = "financialProviderCatalog", path = "financialProviderCatalog")
+
+//@RepositoryRestResource(collectionResourceRel = "financialProviderCatalog", path = "financialProviderCatalog")
+@Repository
 public interface FinancialProviderCatalogJpaRepository extends JpaRepository<FinancialProviderCatalogEntity, Integer> {
 }
