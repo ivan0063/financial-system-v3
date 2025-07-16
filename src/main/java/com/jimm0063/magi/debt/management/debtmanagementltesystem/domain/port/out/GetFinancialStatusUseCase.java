@@ -2,6 +2,6 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.ou
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.UserStatusDashboard;
 
-public interface GetFinancialStatus {
+public interface GetFinancialStatusUseCase {
     UserStatusDashboard getUserStatus(String email);
 }

@@ -4,6 +4,6 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 
 import java.util.List;
 
-public interface PayOffDebtAccount {
-    List<Debt> payOffByDebtAccountCode(String debtAccountCode);
+public interface FindAllDebtsUseCase {
+    List<Debt> getActiveByDebtAccount(String debtAccountCode);
 }

@@ -37,6 +37,14 @@ public class FixedExpenseRepositoryAdapter implements FixedExpenseRepository {
     }
 
     @Override
+    public List<FixedExpense> findAllFixedExpenseByEmailAndActiveTrue(String email) {
+        return this.fixedExpenseJpaRepository.findAllByDebtSysUser_EmailAndActiveTrue(email)
+                .stream()
+                .map(fixedExpenseMapper::toModel)
+                .toList();
+    }
+
+    @Override
     public Optional<FixedExpense> findByIdAndActiveTrue(Integer fixedExpenseId) {
         return this.fixedExpenseJpaRepository.findByIdAndActiveTrue(fixedExpenseId)
                 .map(fixedExpenseMapper::toModel);

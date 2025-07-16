@@ -8,12 +8,13 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.DebtAccountStatusUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllDebtAccountUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DebtAccountService implements DebtAccountStatusUseCase {
+public class DebtAccountService implements DebtAccountStatusUseCase, FindAllDebtAccountUseCase {
     private final DebtAccountRepository debtAccountRepository;
     private final DebtRepository debtRepository;
 
@@ -55,5 +56,10 @@ public class DebtAccountService implements DebtAccountStatusUseCase {
         debtAccountStatusDto.setMonthPayment(monthAmount);
 
         return debtAccountStatusDto;
+    }
+
+    @Override
+    public List<DebtAccount> getActiveByFinancialProvider(String financialProviderCode) {
+        return debtAccountRepository.findAllByFinancialProviderCodeAndActiveTrue(financialProviderCode);
     }
 }

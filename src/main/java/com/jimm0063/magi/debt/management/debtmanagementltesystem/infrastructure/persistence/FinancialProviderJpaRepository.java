@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface FinancialProviderJpaRepository extends JpaRepository<FinancialProviderEntity, String> {
     List<FinancialProviderEntity> findAllByDebtSysUser(DebtSysUserEntity debtSysUser);
+    List<FinancialProviderEntity> findAllByDebtSysUser_Email(String email);
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface FixedExpenseRepository {
     List<FixedExpense> findAllFixedExpenseBySystemUserAndActiveTrue(SystemUser systemUser);
+    List<FixedExpense> findAllFixedExpenseByEmailAndActiveTrue(String email);
     Optional<FixedExpense> findByIdAndActiveTrue(Integer fixedExpenseId);
     FixedExpense save(FixedExpense fixedExpense);
     void delete(Integer fixedExpenseId);

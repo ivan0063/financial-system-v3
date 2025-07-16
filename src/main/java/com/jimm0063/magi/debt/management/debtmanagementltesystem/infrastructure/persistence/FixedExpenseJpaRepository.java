@@ -12,5 +12,6 @@ import java.util.Optional;
 @Repository
 public interface FixedExpenseJpaRepository extends JpaRepository<FixedExpenseEntity, Integer> {
     List<FixedExpenseEntity> findAllByDebtSysUserAndActiveTrue(DebtSysUserEntity user);
+    List<FixedExpenseEntity> findAllByDebtSysUser_EmailAndActiveTrue(String userEmail);
     Optional<FixedExpenseEntity> findByIdAndActiveTrue(Integer id);
 }

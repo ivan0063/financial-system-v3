@@ -3,7 +3,8 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.se
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FilterDebtsUseCase;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.PayOffDebtAccount;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllDebtsUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.PayOffDebtAccountUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.utils.DebtComparatorUtil;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DebtService implements FilterDebtsUseCase, PayOffDebtAccount {
+public class DebtService implements FilterDebtsUseCase, PayOffDebtAccountUseCase, FindAllDebtsUseCase {
     private final DebtRepository debtRepository;
 
     public DebtService(DebtRepository debtRepository) {
@@ -42,5 +43,10 @@ public class DebtService implements FilterDebtsUseCase, PayOffDebtAccount {
 
         this.debtRepository.saveAll(debtsToPayOff);
         return debtsToPayOff;
+    }
+
+    @Override
+    public List<Debt> getActiveByDebtAccount(String debtAccountCode) {
+        return debtRepository.findAllDebtsByDebtAccountAndActiveTrue(debtAccountCode);
     }
 }

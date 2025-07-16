@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface FinancialProviderRepository {
     List<FinancialProvider> findAllBySystemUser(SystemUser systemUser);
+    List<FinancialProvider> findAllByEmail(String email);
     FinancialProvider save(FinancialProvider financialProvider);
     void delete(String financialProviderCode);
 }

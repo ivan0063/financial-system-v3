@@ -8,6 +8,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtSysUserMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.FinancialProviderJpaRepository;
+import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,13 +18,15 @@ public class FinancialProviderRepositoryAdapter implements FinancialProviderRepo
     private final FinancialProviderJpaRepository financialProviderJpaRepository;
     private final DebtSysUserMapper debtSysUserMapper;
     private final FinancialProviderMapper financialProviderMapper;
+    private final JpaContext jpaContext;
 
     public FinancialProviderRepositoryAdapter(FinancialProviderJpaRepository financialProviderJpaRepository,
                                               DebtSysUserMapper debtSysUserMapper,
-                                              FinancialProviderMapper financialProviderMapper) {
+                                              FinancialProviderMapper financialProviderMapper, JpaContext jpaContext) {
         this.financialProviderJpaRepository = financialProviderJpaRepository;
         this.debtSysUserMapper = debtSysUserMapper;
         this.financialProviderMapper = financialProviderMapper;
+        this.jpaContext = jpaContext;
     }
 
     @Override
@@ -32,6 +35,14 @@ public class FinancialProviderRepositoryAdapter implements FinancialProviderRepo
         return this.financialProviderJpaRepository.findAllByDebtSysUser(debtSysUserEntity)
                 .stream()
                 .map(financialProviderMapper::toModel)
+                .toList();
+    }
+
+    @Override
+    public List<FinancialProvider> findAllByEmail(String email) {
+        return financialProviderJpaRepository.findAllByDebtSysUser_Email(email)
+                .stream()
+                .map(this.financialProviderMapper::toModel)
                 .toList();
     }
 

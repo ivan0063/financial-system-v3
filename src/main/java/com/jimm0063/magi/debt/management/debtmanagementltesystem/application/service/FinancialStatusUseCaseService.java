@@ -8,23 +8,23 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.SystemUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.*;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.GetFinancialStatus;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.GetFinancialStatusUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 
 @Service
-public class FinancialStatusService implements GetFinancialStatus {
+public class FinancialStatusUseCaseService implements GetFinancialStatusUseCase {
     private final UserRepository userRepository;
     private final FinancialProviderRepository financialProviderRepository;
     private final DebtAccountRepository debtAccountRepository;
     private final DebtRepository debtRepository;
     private final FixedExpenseRepository fixedExpenseRepository;
 
-    public FinancialStatusService(UserRepository userRepository, FinancialProviderRepository financialProviderRepository,
-                                  DebtAccountRepository debtAccountRepository, DebtRepository debtRepository,
-                                  FixedExpenseRepository fixedExpenseRepository) {
+    public FinancialStatusUseCaseService(UserRepository userRepository, FinancialProviderRepository financialProviderRepository,
+                                         DebtAccountRepository debtAccountRepository, DebtRepository debtRepository,
+                                         FixedExpenseRepository fixedExpenseRepository) {
         this.userRepository = userRepository;
         this.financialProviderRepository = financialProviderRepository;
         this.debtAccountRepository = debtAccountRepository;

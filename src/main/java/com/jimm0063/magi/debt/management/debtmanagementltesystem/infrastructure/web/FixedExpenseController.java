@@ -4,12 +4,15 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Fi
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpenseCatalog;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FixedExpenseCatalogRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FixedExpenseRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllFixedExpenseUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FixedExpenseCatalogMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FixedExpenseMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.CreateFixedExpenseCatalogReq;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.CreateFixedExpenseReq;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fixed/expense")
@@ -18,12 +21,14 @@ public class FixedExpenseController {
     private final FixedExpenseRepository fixedExpenseRepository;
     private final FixedExpenseCatalogMapper fixedExpenseCatalogMapper;
     private final FixedExpenseMapper fixedExpenseMapper;
+    private final FindAllFixedExpenseUseCase findAllFixedExpenseUseCase;
 
-    public FixedExpenseController(FixedExpenseCatalogRepository fixedExpenseCatalogRepository, FixedExpenseRepository fixedExpenseRepository, FixedExpenseCatalogMapper fixedExpenseCatalogMapper, FixedExpenseMapper fixedExpenseMapper) {
+    public FixedExpenseController(FixedExpenseCatalogRepository fixedExpenseCatalogRepository, FixedExpenseRepository fixedExpenseRepository, FixedExpenseCatalogMapper fixedExpenseCatalogMapper, FixedExpenseMapper fixedExpenseMapper, FindAllFixedExpenseUseCase findAllFixedExpenseUseCase) {
         this.fixedExpenseCatalogRepository = fixedExpenseCatalogRepository;
         this.fixedExpenseRepository = fixedExpenseRepository;
         this.fixedExpenseCatalogMapper = fixedExpenseCatalogMapper;
         this.fixedExpenseMapper = fixedExpenseMapper;
+        this.findAllFixedExpenseUseCase = findAllFixedExpenseUseCase;
     }
 
     @PostMapping("/catalog")
@@ -57,5 +62,10 @@ public class FixedExpenseController {
     public ResponseEntity deleteFixedExpense(@PathVariable Integer fixedExpenseId) {
         fixedExpenseRepository.delete(fixedExpenseId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/all/{userEmail}")
+    public ResponseEntity<List<FixedExpense>> deleteFixedExpense(@PathVariable String userEmail) {
+        return ResponseEntity.ok(findAllFixedExpenseUseCase.getByEmail(userEmail));
     }
 }

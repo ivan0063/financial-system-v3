@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface DebtAccountRepository {
     Optional<DebtAccount> findDebtAccountByCodeAndActiveTrue(String code);
     List<DebtAccount> findAllByFinancialProvider(FinancialProvider financialProvider);
+    List<DebtAccount> findAllByFinancialProviderCodeAndActiveTrue(String financialProviderCode);
     DebtAccount save(DebtAccount debtAccount);
     void delete(String debtAccountCode);
 }

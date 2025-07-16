@@ -43,6 +43,14 @@ public class DebtAccountRepositoryAdapter implements DebtAccountRepository {
     }
 
     @Override
+    public List<DebtAccount> findAllByFinancialProviderCodeAndActiveTrue(String financialProviderCode) {
+        return this.debtAccountJpaRepository.findAllByFinancialProvider_CodeAndActiveTrue(financialProviderCode)
+                .stream()
+                .map(debtAccountMapper::toModel)
+                .toList();
+    }
+
+    @Override
     public DebtAccount save(DebtAccount debtAccount) {
         DebtAccountEntity debtAccountEntity = debtAccountMapper.toEntity(debtAccount);
         return this.debtAccountMapper.toModel(debtAccountJpaRepository.save(debtAccountEntity));

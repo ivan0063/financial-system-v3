@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface DebtAccountJpaRepository extends JpaRepository<DebtAccountEntity, String> {
     Optional<DebtAccountEntity> findDebtAccountByCodeAndActiveTrue(String code);
-
     List<DebtAccountEntity> findAllByFinancialProvider(FinancialProviderEntity financialProvider);
+    List<DebtAccountEntity> findAllByFinancialProvider_CodeAndActiveTrue(String financialProviderCode);
 }
