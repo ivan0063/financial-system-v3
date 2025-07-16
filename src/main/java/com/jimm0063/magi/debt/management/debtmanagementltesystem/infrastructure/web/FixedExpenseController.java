@@ -4,6 +4,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Fi
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpenseCatalog;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FixedExpenseCatalogRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FixedExpenseRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllFixedExpenseCatalogsUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllFixedExpenseUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FixedExpenseCatalogMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FixedExpenseMapper;
@@ -22,13 +23,25 @@ public class FixedExpenseController {
     private final FixedExpenseCatalogMapper fixedExpenseCatalogMapper;
     private final FixedExpenseMapper fixedExpenseMapper;
     private final FindAllFixedExpenseUseCase findAllFixedExpenseUseCase;
+    private final FindAllFixedExpenseCatalogsUseCase findAllFixedExpenseCatalogsUseCase;
 
-    public FixedExpenseController(FixedExpenseCatalogRepository fixedExpenseCatalogRepository, FixedExpenseRepository fixedExpenseRepository, FixedExpenseCatalogMapper fixedExpenseCatalogMapper, FixedExpenseMapper fixedExpenseMapper, FindAllFixedExpenseUseCase findAllFixedExpenseUseCase) {
+    public FixedExpenseController(FixedExpenseCatalogRepository fixedExpenseCatalogRepository,
+                                  FixedExpenseRepository fixedExpenseRepository,
+                                  FixedExpenseCatalogMapper fixedExpenseCatalogMapper,
+                                  FixedExpenseMapper fixedExpenseMapper,
+                                  FindAllFixedExpenseUseCase findAllFixedExpenseUseCase,
+                                  FindAllFixedExpenseCatalogsUseCase findAllFixedExpenseCatalogsUseCase) {
         this.fixedExpenseCatalogRepository = fixedExpenseCatalogRepository;
         this.fixedExpenseRepository = fixedExpenseRepository;
         this.fixedExpenseCatalogMapper = fixedExpenseCatalogMapper;
         this.fixedExpenseMapper = fixedExpenseMapper;
         this.findAllFixedExpenseUseCase = findAllFixedExpenseUseCase;
+        this.findAllFixedExpenseCatalogsUseCase = findAllFixedExpenseCatalogsUseCase;
+    }
+
+    @GetMapping("/catalog/all")
+    public ResponseEntity<List<FixedExpenseCatalog>> getFixedExpenseCatalogs() {
+        return ResponseEntity.ok(findAllFixedExpenseCatalogsUseCase.getCatalogList());
     }
 
     @PostMapping("/catalog")

@@ -7,6 +7,8 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.FinancialProviderCatalogJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class FinancialProviderCatalogRepositoryAdapter implements FinancialProviderCatalogRepository {
     private final FinancialProviderCatalogJpaRepository financialProviderCatalogJpaRepository;
@@ -15,6 +17,14 @@ public class FinancialProviderCatalogRepositoryAdapter implements FinancialProvi
     public FinancialProviderCatalogRepositoryAdapter(FinancialProviderCatalogJpaRepository financialProviderCatalogJpaRepository, FinancialProviderCatalogMapper financialProviderCatalogMapper) {
         this.financialProviderCatalogJpaRepository = financialProviderCatalogJpaRepository;
         this.financialProviderCatalogMapper = financialProviderCatalogMapper;
+    }
+
+    @Override
+    public List<FinancialProviderCatalog> findAllFinancialProviderCatalogs() {
+        return financialProviderCatalogJpaRepository.findAll()
+                .stream()
+                .map(this.financialProviderCatalogMapper::toModel)
+                .toList();
     }
 
     @Override

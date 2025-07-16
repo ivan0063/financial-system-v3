@@ -4,6 +4,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Fi
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FinancialProviderCatalog;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FinancialProviderCatalogRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FinancialProviderRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllFinancialProviderCatalogsUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllFinancialProviderUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderCatalogMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderMapper;
@@ -23,13 +24,25 @@ public class FinancialProviderController {
     private final FinancialProviderMapper financialProviderMapper;
     private final FinancialProviderCatalogMapper financialProviderCatalogMapper;
     private final FindAllFinancialProviderUseCase findAllFinancialProviderUseCase;
+    private final FindAllFinancialProviderCatalogsUseCase findAllFinancialProviderCatalogsUseCase;
 
-    public FinancialProviderController(FinancialProviderCatalogRepository financialProviderCatalogRepository, FinancialProviderRepository financialProviderRepository, FinancialProviderMapper financialProviderMapper, FinancialProviderCatalogMapper financialProviderCatalogMapper, FindAllFinancialProviderUseCase findAllFinancialProviderUseCase) {
+    public FinancialProviderController(FinancialProviderCatalogRepository financialProviderCatalogRepository,
+                                       FinancialProviderRepository financialProviderRepository,
+                                       FinancialProviderMapper financialProviderMapper,
+                                       FinancialProviderCatalogMapper financialProviderCatalogMapper,
+                                       FindAllFinancialProviderUseCase findAllFinancialProviderUseCase,
+                                       FindAllFinancialProviderCatalogsUseCase findAllFinancialProviderCatalogsUseCase) {
         this.financialProviderCatalogRepository = financialProviderCatalogRepository;
         this.financialProviderRepository = financialProviderRepository;
         this.financialProviderMapper = financialProviderMapper;
         this.financialProviderCatalogMapper = financialProviderCatalogMapper;
         this.findAllFinancialProviderUseCase = findAllFinancialProviderUseCase;
+        this.findAllFinancialProviderCatalogsUseCase = findAllFinancialProviderCatalogsUseCase;
+    }
+
+    @GetMapping("/catalog/all")
+    public ResponseEntity<List<FinancialProviderCatalog>> getFinancialProviderCatalogs() {
+        return ResponseEntity.ok(findAllFinancialProviderCatalogsUseCase.getCatalogList());
     }
 
     @PostMapping("/catalog")

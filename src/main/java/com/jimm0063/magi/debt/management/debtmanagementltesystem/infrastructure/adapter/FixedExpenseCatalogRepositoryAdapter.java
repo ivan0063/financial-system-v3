@@ -7,6 +7,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.FixedExpenseCatalogJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -17,6 +18,14 @@ public class FixedExpenseCatalogRepositoryAdapter implements FixedExpenseCatalog
     public FixedExpenseCatalogRepositoryAdapter(FixedExpenseCatalogJpaRepository fixedExpenseCatalogJpaRepository, FixedExpenseCatalogMapper fixedExpenseCatalogMapper) {
         this.fixedExpenseCatalogJpaRepository = fixedExpenseCatalogJpaRepository;
         this.fixedExpenseCatalogMapper = fixedExpenseCatalogMapper;
+    }
+
+    @Override
+    public List<FixedExpenseCatalog> findAll() {
+        return fixedExpenseCatalogJpaRepository.findAll()
+                .stream()
+                .map(this.fixedExpenseCatalogMapper::toModel)
+                .toList();
     }
 
     @Override
