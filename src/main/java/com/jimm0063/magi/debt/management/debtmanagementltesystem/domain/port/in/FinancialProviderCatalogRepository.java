@@ -4,4 +4,5 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Fi
 
 public interface FinancialProviderCatalogRepository {
     FinancialProviderCatalog save(FinancialProviderCatalog financialProviderCatalog);
+    void delete(Integer financialProviderCatalogId);
 }

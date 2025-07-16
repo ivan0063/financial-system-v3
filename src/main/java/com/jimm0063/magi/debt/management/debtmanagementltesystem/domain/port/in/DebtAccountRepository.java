@@ -10,4 +10,5 @@ public interface DebtAccountRepository {
     Optional<DebtAccount> findDebtAccountByCodeAndActiveTrue(String code);
     List<DebtAccount> findAllByFinancialProvider(FinancialProvider financialProvider);
     DebtAccount save(DebtAccount debtAccount);
+    void delete(String debtAccountCode);
 }

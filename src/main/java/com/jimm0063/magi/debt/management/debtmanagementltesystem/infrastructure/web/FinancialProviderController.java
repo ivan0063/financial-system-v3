@@ -37,6 +37,12 @@ public class FinancialProviderController {
         return ResponseEntity.ok(this.financialProviderCatalogRepository.save(financialProviderCatalog));
     }
 
+    @DeleteMapping("/catalog/{financialProviderCatalogId}")
+    public ResponseEntity deleteFinancialProviderCatalog(@PathVariable Integer financialProviderCatalogId) {
+        this.financialProviderCatalogRepository.delete(financialProviderCatalogId);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping
     public ResponseEntity<FinancialProvider> createFinancialProvider(@RequestBody CreateFinancialProviderReq createFinancialProviderReq) {
         return ResponseEntity.ok(this.financialProviderRepository.save(financialProviderMapper.toModel(createFinancialProviderReq)));
@@ -45,5 +51,11 @@ public class FinancialProviderController {
     @PutMapping
     public ResponseEntity<FinancialProvider> updateFinancialProvider(@Valid @RequestBody FinancialProvider financialProvider) {
         return ResponseEntity.ok(this.financialProviderRepository.save(financialProvider));
+    }
+
+    @DeleteMapping("/{financialProviderId}")
+    public ResponseEntity deleteFinancialProvider(@PathVariable String financialProviderId) {
+        this.financialProviderRepository.delete(financialProviderId);
+        return ResponseEntity.ok().build();
     }
 }

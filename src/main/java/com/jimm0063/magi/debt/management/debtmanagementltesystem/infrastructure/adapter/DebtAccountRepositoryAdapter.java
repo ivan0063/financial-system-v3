@@ -47,4 +47,12 @@ public class DebtAccountRepositoryAdapter implements DebtAccountRepository {
         DebtAccountEntity debtAccountEntity = debtAccountMapper.toEntity(debtAccount);
         return this.debtAccountMapper.toModel(debtAccountJpaRepository.save(debtAccountEntity));
     }
+
+    @Override
+    public void delete(String debtAccountCode) {
+        DebtAccountEntity debtAccountEntity = debtAccountJpaRepository.findById(debtAccountCode)
+                        .orElseThrow(() -> new IllegalArgumentException("Debt account " + debtAccountCode + " not found"));
+        debtAccountEntity.setActive(false);
+        debtAccountJpaRepository.save(debtAccountEntity);
+    }
 }

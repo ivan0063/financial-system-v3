@@ -22,4 +22,11 @@ public class FinancialProviderCatalogRepositoryAdapter implements FinancialProvi
         FinancialProviderCatalogEntity financialProviderCatalogEntity = financialProviderCatalogMapper.toEntity(financialProviderCatalog);
         return this.financialProviderCatalogMapper.toModel(financialProviderCatalogJpaRepository.save(financialProviderCatalogEntity));
     }
+
+    @Override
+    public void delete(Integer financialProviderCatalogId) {
+        FinancialProviderCatalogEntity financialProviderCatalogEntity = financialProviderCatalogJpaRepository.findById(financialProviderCatalogId)
+                .orElseThrow(() -> new IllegalArgumentException("Financial provider " + financialProviderCatalogId + " catalog not found"));
+        this.financialProviderCatalogJpaRepository.delete(financialProviderCatalogEntity);
+    }
 }

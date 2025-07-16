@@ -1,5 +1,6 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.adapter;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
@@ -53,5 +54,13 @@ public class DebtRepositoryAdapter implements DebtRepository {
     public Debt save(Debt debt) {
         DebtEntity debtEntity = debtMapper.toEntity(debt);
         return debtMapper.toModel(this.debtJpaRepository.save(debtEntity));
+    }
+
+    @Override
+    public void delete(Integer debtId) {
+        DebtEntity debtEntity = debtJpaRepository.findById(debtId)
+                        .orElseThrow(() -> new EntityNotFoundException("Debt " + debtId + " not found"));
+        debtEntity.setActive(false);
+        this.debtJpaRepository.save(debtEntity);
     }
 }

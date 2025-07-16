@@ -10,4 +10,5 @@ public interface DebtRepository {
     List<Debt> saveAll(List<Debt> debt, DebtAccount debtAccount);
     List<Debt> saveAll(List<Debt> debt);
     Debt save(Debt debt);
+    void delete(Integer debtId);
 }

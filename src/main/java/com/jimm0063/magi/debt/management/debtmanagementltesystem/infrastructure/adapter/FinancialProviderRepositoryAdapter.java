@@ -40,4 +40,12 @@ public class FinancialProviderRepositoryAdapter implements FinancialProviderRepo
         FinancialProviderEntity financialProviderEntity = financialProviderMapper.toEntity(financialProvider);
         return this.financialProviderMapper.toModel(financialProviderJpaRepository.save(financialProviderEntity));
     }
+
+    @Override
+    public void delete(String financialProviderCode) {
+        FinancialProviderEntity financialProviderEntity = financialProviderJpaRepository.findById(financialProviderCode)
+                        .orElseThrow(() -> new IllegalArgumentException("Financial provider code " + financialProviderCode + " not found"));
+        financialProviderEntity.setActive(false);
+        this.financialProviderJpaRepository.save(financialProviderEntity);
+    }
 }

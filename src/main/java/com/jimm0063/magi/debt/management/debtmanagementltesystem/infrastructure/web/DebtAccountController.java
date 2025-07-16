@@ -33,6 +33,12 @@ public class DebtAccountController {
         return ResponseEntity.ok(this.debtAccountRepository.save(debtAccount));
     }
 
+    @DeleteMapping("/{debtAccountCode}")
+    public ResponseEntity deleteDebtAccount(@PathVariable("debtAccountCode") String debtAccountCode) {
+        debtAccountRepository.delete(debtAccountCode);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/status/{debtAccountCode}")
     public ResponseEntity<DebtAccountStatusDto> debtAccountStatus(@PathVariable("debtAccountCode") String debtAccountCode) {
         return ResponseEntity.ok(debtAccountStatusUseCase.getStatus(debtAccountCode));

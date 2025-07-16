@@ -1,5 +1,6 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.adapter;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.SystemUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FixedExpenseRepository;
@@ -11,6 +12,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class FixedExpenseRepositoryAdapter implements FixedExpenseRepository {
@@ -35,8 +37,22 @@ public class FixedExpenseRepositoryAdapter implements FixedExpenseRepository {
     }
 
     @Override
+    public Optional<FixedExpense> findByIdAndActiveTrue(Integer fixedExpenseId) {
+        return this.fixedExpenseJpaRepository.findByIdAndActiveTrue(fixedExpenseId)
+                .map(fixedExpenseMapper::toModel);
+    }
+
+    @Override
     public FixedExpense save(FixedExpense fixedExpense) {
         FixedExpenseEntity fixedExpenseEntity = fixedExpenseMapper.toEntity(fixedExpense);
         return this.fixedExpenseMapper.toModel(this.fixedExpenseJpaRepository.save(fixedExpenseEntity));
+    }
+
+    @Override
+    public void delete(Integer fixedExpenseId) {
+        FixedExpenseEntity fixedExpenseEntity = this.fixedExpenseJpaRepository.findById(fixedExpenseId)
+                        .orElseThrow(()->new EntityNotFoundException("FixedExpense with id " + fixedExpenseId + " not found"));
+        fixedExpenseEntity.setActive(false);
+        this.fixedExpenseJpaRepository.save(fixedExpenseEntity);
     }
 }

@@ -37,6 +37,12 @@ public class FixedExpenseController {
         return ResponseEntity.ok(fixedExpenseCatalogRepository.save(fixedExpenseCatalog));
     }
 
+    @DeleteMapping("/catalog/{fixedExpenseCatalogId}")
+    public ResponseEntity deleteFixedExpenseCatalog(@PathVariable Integer fixedExpenseCatalogId) {
+        fixedExpenseCatalogRepository.delete(fixedExpenseCatalogId);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping
     public ResponseEntity<FixedExpense> createFixedExpense(@RequestBody CreateFixedExpenseReq createFixedExpenseReq) {
         return ResponseEntity.ok(fixedExpenseRepository.save(fixedExpenseMapper.toModel(createFixedExpenseReq)));
@@ -45,5 +51,11 @@ public class FixedExpenseController {
     @PutMapping
     public ResponseEntity<FixedExpense> updateFixedExpense(@RequestBody FixedExpense fixedExpense) {
         return ResponseEntity.ok(fixedExpenseRepository.save(fixedExpense));
+    }
+
+    @DeleteMapping("/{fixedExpenseId}")
+    public ResponseEntity deleteFixedExpense(@PathVariable Integer fixedExpenseId) {
+        fixedExpenseRepository.delete(fixedExpenseId);
+        return ResponseEntity.ok().build();
     }
 }

@@ -27,4 +27,10 @@ public class DebtController {
     public ResponseEntity<Debt> updateDebt(@RequestBody Debt debt) {
         return ResponseEntity.ok(debtRepository.save(debt));
     }
+
+    @DeleteMapping("/{debtId}")
+    public ResponseEntity<Debt> updateDebt(@PathVariable Integer debtId) {
+        debtRepository.delete(debtId);
+        return ResponseEntity.ok().build();
+    }
 }
