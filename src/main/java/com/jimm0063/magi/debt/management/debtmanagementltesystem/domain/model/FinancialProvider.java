@@ -14,6 +14,6 @@ public class FinancialProvider {
     private Instant updatedAt;
     private Boolean active;
     private FinancialProviderCatalog financialProviderCatalog;
-    private SystemUser systemUser;
+    private DebtSysUser debtSysUser;
     //List<DebtAccount> debtAccounts,
 }

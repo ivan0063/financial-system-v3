@@ -6,7 +6,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptio
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.SystemUser;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.*;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.GetFinancialStatusUseCase;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class FinancialStatusUseCaseService implements GetFinancialStatusUseCase 
 
     @Override
     public UserStatusDashboard getUserStatus(String email) {
-        SystemUser user = this.userRepository.findUserByEmail(email)
+        DebtSysUser user = this.userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User " + email + " not found"));
 
         List<DebtAccount> userDebtAccounts = this.financialProviderRepository.findAllBySystemUser(user).stream()

@@ -1,6 +1,6 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.adapter;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.SystemUser;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.UserRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtSysUserMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtSysUserJpaRepository;
@@ -19,7 +19,7 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
-    public Optional<SystemUser> findUserByEmail(String email) {
+    public Optional<DebtSysUser> findUserByEmail(String email) {
         return this.debtSysUserJpaRepository.findByEmailAndActiveTrue(email)
                 .map(debtSysUserMapper::toModel);
     }

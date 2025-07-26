@@ -25,10 +25,10 @@ public class FinancialProviderEntity implements Serializable {
     @Column(name = "updated_at")
     private Instant updatedAt;
     private Boolean active;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "financial_provider_catalog", nullable = false)
     private FinancialProviderCatalogEntity financialProviderCatalog;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "debt_sys_user", nullable = false)
     private DebtSysUserEntity debtSysUser;
     @OneToMany(mappedBy = "financialProvider")

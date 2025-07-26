@@ -1,5 +1,6 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.adapter;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FinancialProvider;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
@@ -8,6 +9,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtAccountMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtAccountJpaRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.FinancialProviderJpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,13 +20,15 @@ public class DebtAccountRepositoryAdapter implements DebtAccountRepository {
     private final DebtAccountJpaRepository debtAccountJpaRepository;
     private final DebtAccountMapper debtAccountMapper;
     private final FinancialProviderMapper financialProviderMapper;
+    private final FinancialProviderJpaRepository financialProviderJpaRepository;
 
     public DebtAccountRepositoryAdapter(DebtAccountJpaRepository debtAccountJpaRepository,
                                         DebtAccountMapper debtAccountMapper,
-                                        FinancialProviderMapper financialProviderMapper) {
+                                        FinancialProviderMapper financialProviderMapper, FinancialProviderJpaRepository financialProviderJpaRepository) {
         this.debtAccountJpaRepository = debtAccountJpaRepository;
         this.debtAccountMapper = debtAccountMapper;
         this.financialProviderMapper = financialProviderMapper;
+        this.financialProviderJpaRepository = financialProviderJpaRepository;
     }
 
     @Override
@@ -51,7 +55,18 @@ public class DebtAccountRepositoryAdapter implements DebtAccountRepository {
     }
 
     @Override
-    public DebtAccount save(DebtAccount debtAccount) {
+    public DebtAccount save(DebtAccount debtAccount, String financialProviderCode) {
+        FinancialProviderEntity financialProviderEntity = financialProviderJpaRepository.findByCode(financialProviderCode)
+                .orElseThrow(() -> new EntityNotFoundException("Financial provider " + financialProviderCode + " not found"));
+
+        DebtAccountEntity debtAccountEntity = debtAccountMapper.toEntity(debtAccount);
+        debtAccountEntity.setActive(true);
+        debtAccountEntity.setFinancialProvider(financialProviderEntity);
+        return this.debtAccountMapper.toModel(debtAccountJpaRepository.save(debtAccountEntity));
+    }
+
+    @Override
+    public DebtAccount update(DebtAccount debtAccount) {
         DebtAccountEntity debtAccountEntity = debtAccountMapper.toEntity(debtAccount);
         return this.debtAccountMapper.toModel(debtAccountJpaRepository.save(debtAccountEntity));
     }

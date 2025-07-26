@@ -63,12 +63,13 @@ public class FinancialProviderController {
 
     @PostMapping
     public ResponseEntity<FinancialProvider> createFinancialProvider(@RequestBody CreateFinancialProviderReq createFinancialProviderReq) {
-        return ResponseEntity.ok(this.financialProviderRepository.save(financialProviderMapper.toModel(createFinancialProviderReq)));
+        return ResponseEntity.ok(this.financialProviderRepository
+                .save(financialProviderMapper.toModel(createFinancialProviderReq), createFinancialProviderReq.getEmail()));
     }
 
     @PutMapping
     public ResponseEntity<FinancialProvider> updateFinancialProvider(@Valid @RequestBody FinancialProvider financialProvider) {
-        return ResponseEntity.ok(this.financialProviderRepository.save(financialProvider));
+        return ResponseEntity.ok(this.financialProviderRepository.update(financialProvider));
     }
 
     @DeleteMapping("/{financialProviderId}")

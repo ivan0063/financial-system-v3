@@ -20,10 +20,10 @@ public class FixedExpenseEntity implements Serializable {
     @Column(name = "payment_day")
     private Integer paymentDay;
     private Boolean active;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "debt_sys_user", nullable = false)
     private DebtSysUserEntity debtSysUser;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fixed_expenses_catalog", nullable = false)
     private FixedExpenseCatalogEntity fixedExpenseCatalog;
 }

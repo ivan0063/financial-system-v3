@@ -7,7 +7,7 @@ import java.time.Instant;
 
 @Setter
 @Getter
-public class SystemUser {
+public class DebtSysUser {
     private String email;
     private String name;
     private Double salary;

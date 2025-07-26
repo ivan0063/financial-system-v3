@@ -17,6 +17,6 @@ public class DebtAccount {
     private Instant updatedAt;
     private Boolean active;
     private AccountStatementType accountStatementType;
-    // FinancialProvider financialProvider,
+    private FinancialProvider financialProvider;
     // List<Debt> debts,
 }
