@@ -1,6 +1,5 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FinancialProviderCatalog;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +8,6 @@ public class CreateFinancialProviderReq {
     private String code;
     private String name;
     private Boolean active;
-    private FinancialProviderCatalog financialProviderCatalog;
+    private Integer catalogId;
     private String email;
 }

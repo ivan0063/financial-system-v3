@@ -64,7 +64,7 @@ public class FinancialProviderController {
     @PostMapping
     public ResponseEntity<FinancialProvider> createFinancialProvider(@RequestBody CreateFinancialProviderReq createFinancialProviderReq) {
         return ResponseEntity.ok(this.financialProviderRepository
-                .save(financialProviderMapper.toModel(createFinancialProviderReq), createFinancialProviderReq.getEmail()));
+                .save(financialProviderMapper.toModel(createFinancialProviderReq), createFinancialProviderReq.getEmail(), createFinancialProviderReq.getCatalogId()));
     }
 
     @PutMapping

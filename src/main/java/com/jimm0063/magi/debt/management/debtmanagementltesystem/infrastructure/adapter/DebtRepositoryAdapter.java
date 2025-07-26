@@ -8,6 +8,7 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtAccountMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtMapper;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtAccountJpaRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +20,14 @@ public class DebtRepositoryAdapter implements DebtRepository {
     private final DebtJpaRepository debtJpaRepository;
     private final DebtMapper debtMapper;
     private final DebtAccountMapper debtAccountMapper;
+    private final DebtAccountJpaRepository debtAccountJpaRepository;
 
     public DebtRepositoryAdapter(DebtJpaRepository debtJpaRepository, DebtMapper debtMapper,
-                                 DebtAccountMapper debtAccountMapper) {
+                                 DebtAccountMapper debtAccountMapper, DebtAccountJpaRepository debtAccountJpaRepository) {
         this.debtJpaRepository = debtJpaRepository;
         this.debtMapper = debtMapper;
         this.debtAccountMapper = debtAccountMapper;
+        this.debtAccountJpaRepository = debtAccountJpaRepository;
     }
 
     @Override
@@ -51,7 +54,19 @@ public class DebtRepositoryAdapter implements DebtRepository {
     }
 
     @Override
-    public Debt save(Debt debt) {
+    public Debt save(Debt debt, String debtAccountCode) {
+        DebtAccountEntity debtAccountEntity = debtAccountJpaRepository.findById(debtAccountCode)
+                .orElseThrow(() -> new EntityNotFoundException("DebtAccount " + debtAccountCode + " not found"));
+        DebtEntity debtEntity = debtMapper.toEntity(debt);
+        debtEntity.setDebtAccount(debtAccountEntity);
+        debtEntity.setActive(true);
+
+        debtJpaRepository.save(debtEntity);
+        return debtMapper.toModel(this.debtJpaRepository.save(debtEntity));
+    }
+
+    @Override
+    public Debt update(Debt debt) {
         DebtEntity debtEntity = debtMapper.toEntity(debt);
         return debtMapper.toModel(this.debtJpaRepository.save(debtEntity));
     }

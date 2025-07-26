@@ -23,14 +23,14 @@ public class DebtController {
         this.findAllDebtsUseCase = findAllDebtsUseCase;
     }
 
-    @PostMapping
-    public ResponseEntity<Debt> createDebt(@RequestBody CreateDebtReq createDebtReq) {
-        return ResponseEntity.ok(debtRepository.save(debtMapper.toModel(createDebtReq)));
+    @PostMapping("/{debtAccountCode}")
+    public ResponseEntity<Debt> createDebt(@RequestBody CreateDebtReq createDebtReq, @PathVariable String debtAccountCode) {
+        return ResponseEntity.ok(debtRepository.save(debtMapper.toModel(createDebtReq), debtAccountCode));
     }
 
     @PutMapping
     public ResponseEntity<Debt> updateDebt(@RequestBody Debt debt) {
-        return ResponseEntity.ok(debtRepository.save(debt));
+        return ResponseEntity.ok(debtRepository.update(debt));
     }
 
     @DeleteMapping("/{debtId}")

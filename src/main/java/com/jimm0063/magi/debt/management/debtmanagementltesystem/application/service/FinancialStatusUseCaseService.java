@@ -5,8 +5,8 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.User
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.*;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.GetFinancialStatusUseCase;
 import org.springframework.stereotype.Service;

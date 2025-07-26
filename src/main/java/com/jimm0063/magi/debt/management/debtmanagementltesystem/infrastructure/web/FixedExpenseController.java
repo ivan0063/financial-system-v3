@@ -59,7 +59,7 @@ public class FixedExpenseController {
 
     @PostMapping
     public ResponseEntity<FixedExpense> createFixedExpense(@RequestBody FixedExpenseReq createFixedExpenseReq) {
-        return ResponseEntity.ok(fixedExpenseRepository.save(createFixedExpenseReq));
+        return ResponseEntity.ok(fixedExpenseRepository.save(createFixedExpenseReq, createFixedExpenseReq.getCatalogId()));
     }
 
     @PutMapping

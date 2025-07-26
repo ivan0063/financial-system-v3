@@ -1,15 +1,17 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.adapter;
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FixedExpenseRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtSysUserEntity;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.FixedExpenseCatalogEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.FixedExpenseEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtSysUserMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FixedExpenseMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.FixedExpenseReq;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtSysUserJpaRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.FixedExpenseCatalogJpaRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.FixedExpenseJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -22,15 +24,17 @@ public class FixedExpenseRepositoryAdapter implements FixedExpenseRepository {
     private final FixedExpenseMapper fixedExpenseMapper;
     private final DebtSysUserJpaRepository debtSysUserJpaRepository;
     private final DebtSysUserMapper debtSysUserMapper;
+    private final FixedExpenseCatalogJpaRepository fixedExpenseCatalogJpaRepository;
 
     public FixedExpenseRepositoryAdapter(FixedExpenseJpaRepository fixedExpenseJpaRepository,
                                          FixedExpenseMapper fixedExpenseMapper,
                                          DebtSysUserJpaRepository debtSysUserJpaRepository,
-                                         DebtSysUserMapper debtSysUserMapper) {
+                                         DebtSysUserMapper debtSysUserMapper, FixedExpenseCatalogJpaRepository fixedExpenseCatalogJpaRepository) {
         this.fixedExpenseJpaRepository = fixedExpenseJpaRepository;
         this.fixedExpenseMapper = fixedExpenseMapper;
         this.debtSysUserJpaRepository = debtSysUserJpaRepository;
         this.debtSysUserMapper = debtSysUserMapper;
+        this.fixedExpenseCatalogJpaRepository = fixedExpenseCatalogJpaRepository;
     }
 
     @Override
@@ -57,13 +61,17 @@ public class FixedExpenseRepositoryAdapter implements FixedExpenseRepository {
     }
 
     @Override
-    public FixedExpense save(FixedExpenseReq fixedExpense) {
+    public FixedExpense save(FixedExpenseReq fixedExpense, Integer fixedExpenseCatalogId) {
         DebtSysUserEntity debtSysUserEntity = debtSysUserJpaRepository.findByEmailAndActiveTrue(fixedExpense.getUserEmail())
                 .orElseThrow(()->new EntityNotFoundException("User " + fixedExpense.getUserEmail() + " not found"));
 
+        FixedExpenseCatalogEntity fixedExpenseCatalog = fixedExpenseCatalogJpaRepository.findById(fixedExpenseCatalogId)
+                .orElseThrow(()->new EntityNotFoundException("Catalog " + fixedExpenseCatalogId + " not found"));
+
         FixedExpenseEntity fixedExpenseEntity = fixedExpenseMapper.toEntity(fixedExpense);
-        fixedExpenseEntity.setActive(true);
         fixedExpenseEntity.setDebtSysUser(debtSysUserEntity);
+        fixedExpenseEntity.setFixedExpenseCatalog(fixedExpenseCatalog);
+        fixedExpenseEntity.setActive(true);
 
         return this.fixedExpenseMapper.toModel(this.fixedExpenseJpaRepository.save(fixedExpenseEntity));
     }

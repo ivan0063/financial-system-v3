@@ -9,6 +9,7 @@ public interface DebtRepository {
     List<Debt> findAllDebtsByDebtAccountAndActiveTrue(String debtAccountCode);
     List<Debt> saveAll(List<Debt> debt, DebtAccount debtAccount);
     List<Debt> saveAll(List<Debt> debt);
-    Debt save(Debt debt);
+    Debt save(Debt debt, String debtAccountCode);
+    Debt update(Debt debt);
     void delete(Integer debtId);
 }

@@ -8,5 +8,4 @@ import lombok.Setter;
 public class FinancialProviderCatalog {
     private Integer id;
     private String name;
-    //private List<FinancialProvider> financialProviders;
 }

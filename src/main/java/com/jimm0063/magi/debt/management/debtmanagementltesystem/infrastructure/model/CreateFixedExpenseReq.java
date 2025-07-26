@@ -1,7 +1,7 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpenseCatalog;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpenseCatalog;
 import lombok.Getter;
 import lombok.Setter;
 

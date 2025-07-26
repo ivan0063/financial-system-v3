@@ -11,7 +11,7 @@ public interface FixedExpenseRepository {
     List<FixedExpense> findAllFixedExpenseBySystemUserAndActiveTrue(DebtSysUser systemUser);
     List<FixedExpense> findAllFixedExpenseByEmailAndActiveTrue(String email);
     Optional<FixedExpense> findByIdAndActiveTrue(Integer fixedExpenseId);
-    FixedExpense save(FixedExpenseReq fixedExpense);
+    FixedExpense save(FixedExpenseReq fixedExpense, Integer fixedExpenseCatalogId);
     FixedExpense update(FixedExpense fixedExpense);
     void delete(Integer fixedExpenseId);
 }

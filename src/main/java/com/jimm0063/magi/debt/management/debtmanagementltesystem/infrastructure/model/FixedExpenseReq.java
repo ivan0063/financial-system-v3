@@ -1,6 +1,5 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpenseCatalog;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +9,5 @@ public class FixedExpenseReq {
     private Double monthlyCost;
     private Integer paymentDay;
     private String userEmail;
-    private FixedExpenseCatalog fixedExpenseCatalog;
+    private Integer catalogId;
 }
