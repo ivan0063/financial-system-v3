@@ -50,7 +50,7 @@ public class FinancialStatusUseCaseService implements GetFinancialStatusUseCase 
 
         //Get almost completed debts
         List<AlmostCompletedDebtsDto> almostCompletedDebts = userDebts.stream()
-                .filter(debt -> (debt.getCurrentInstallment() + 1) >= debt.getMaxFinancingTerm() || (debt.getCurrentInstallment() + 2) >= debt.getMaxFinancingTerm())
+                .filter(debt -> (debt.getCurrentInstallment() + 1) >= debt.getMaxFinancingTerm())
                 .map(debt -> {
                     AlmostCompletedDebtsDto almostCompletedDebtsDto = new AlmostCompletedDebtsDto();
                     almostCompletedDebtsDto.setCode(debt.getDebtAccount().getCode());
