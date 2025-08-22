@@ -4,11 +4,12 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.Ac
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Setter
 @Getter
-public class DebtAccount {
+public class DebtAccount implements Serializable {
     private String code;
     private String name;
     private Integer payDay;

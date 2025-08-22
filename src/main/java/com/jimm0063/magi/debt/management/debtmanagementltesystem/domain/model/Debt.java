@@ -3,11 +3,12 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Setter
 @Getter
-public class Debt {
+public class Debt implements Serializable {
     private Integer id;
     private String description;
     private String operationDate;

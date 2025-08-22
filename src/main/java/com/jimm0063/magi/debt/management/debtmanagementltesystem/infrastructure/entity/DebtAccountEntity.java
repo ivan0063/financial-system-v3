@@ -35,4 +35,6 @@ public class DebtAccountEntity implements Serializable {
     private FinancialProviderEntity financialProvider;
     @OneToMany(mappedBy = "debtAccount")
     private List<DebtEntity> debt;
+    @OneToMany(mappedBy = "debtAccount")
+    private List<PaymentEntity> payments;
 }
