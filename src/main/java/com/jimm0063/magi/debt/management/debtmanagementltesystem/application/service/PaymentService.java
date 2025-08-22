@@ -3,6 +3,7 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.se
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.NoDebtsException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Payment;
@@ -35,6 +36,8 @@ public class PaymentService implements DoPayment {
         DebtAccount debtAccount = debtAccountRepository.findDebtAccountByCodeAndActiveTrue(debtAccountCode)
                 .orElseThrow(() -> new EntityNotFoundException("Debt account " + debtAccountCode + "not found"));
         List<Debt> debts = debtRepository.findAllDebtsByDebtAccountAndActiveTrue(debtAccountCode);
+
+        if(debts.isEmpty()) throw new NoDebtsException("Debt account " + debtAccountCode + " not found");
 
         Double amountToPay = debts
                 .stream()
