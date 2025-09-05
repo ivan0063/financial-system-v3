@@ -6,10 +6,12 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtAccountEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtEntity;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtSysUserEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtAccountMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtAccountJpaRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtJpaRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.DebtSysUserJpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,19 +23,34 @@ public class DebtRepositoryAdapter implements DebtRepository {
     private final DebtMapper debtMapper;
     private final DebtAccountMapper debtAccountMapper;
     private final DebtAccountJpaRepository debtAccountJpaRepository;
+    private final DebtSysUserJpaRepository debtSysUserJpaRepository;
 
     public DebtRepositoryAdapter(DebtJpaRepository debtJpaRepository, DebtMapper debtMapper,
-                                 DebtAccountMapper debtAccountMapper, DebtAccountJpaRepository debtAccountJpaRepository) {
+                                 DebtAccountMapper debtAccountMapper, DebtAccountJpaRepository debtAccountJpaRepository, DebtSysUserJpaRepository debtSysUserJpaRepository) {
         this.debtJpaRepository = debtJpaRepository;
         this.debtMapper = debtMapper;
         this.debtAccountMapper = debtAccountMapper;
         this.debtAccountJpaRepository = debtAccountJpaRepository;
+        this.debtSysUserJpaRepository = debtSysUserJpaRepository;
     }
 
     @Override
     public List<Debt> findAllDebtsByDebtAccountAndActiveTrue(String debtAccountCode) {
         return this.debtJpaRepository.findAllDebtsByDebtAccount_CodeAndActiveTrue(debtAccountCode)
                 .stream()
+                .map(debtMapper::toModel)
+                .toList();
+    }
+
+    @Override
+    public List<Debt> findAllDebtsByUser(String email) {
+        DebtSysUserEntity user = this.debtSysUserJpaRepository.findByEmailAndActiveTrue(email)
+                .orElseThrow(() -> new EntityNotFoundException("User " + email + " not found"));
+
+        return user.getFinancialProviders().stream()
+                .flatMap(financialProviderEntity -> financialProviderEntity.getDebtAccounts().stream())
+                .flatMap(debtAccountEntity -> debtAccountEntity.getDebt().stream())
+                .filter(DebtEntity::getActive)
                 .map(debtMapper::toModel)
                 .toList();
     }
