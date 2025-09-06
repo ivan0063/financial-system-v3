@@ -33,7 +33,7 @@ public class DebtAccountEntity implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "financial_provider", nullable = false)
     private FinancialProviderEntity financialProvider;
-    @OneToMany(mappedBy = "debtAccount")
+    @OneToMany(mappedBy = "debtAccount", fetch = FetchType.EAGER)
     private List<DebtEntity> debt;
     @OneToMany(mappedBy = "debtAccount")
     private List<PaymentEntity> payments;

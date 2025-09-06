@@ -23,7 +23,7 @@ public class DebtRepositoryAdapter implements DebtRepository {
     private final DebtMapper debtMapper;
     private final DebtAccountMapper debtAccountMapper;
     private final DebtAccountJpaRepository debtAccountJpaRepository;
-        private final DebtSysUserJpaRepository debtSysUserJpaRepository;
+    private final DebtSysUserJpaRepository debtSysUserJpaRepository;
 
     public DebtRepositoryAdapter(DebtJpaRepository debtJpaRepository, DebtMapper debtMapper,
                                  DebtAccountMapper debtAccountMapper, DebtAccountJpaRepository debtAccountJpaRepository, DebtSysUserJpaRepository debtSysUserJpaRepository) {

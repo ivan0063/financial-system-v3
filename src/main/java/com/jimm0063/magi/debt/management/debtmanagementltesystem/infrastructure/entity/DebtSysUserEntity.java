@@ -29,6 +29,6 @@ public class DebtSysUserEntity implements Serializable {
     private Boolean active;
     @OneToMany(mappedBy = "debtSysUser")
     private List<FixedExpenseEntity> fixedExpenses;
-    @OneToMany(mappedBy = "debtSysUser")
+    @OneToMany(mappedBy = "debtSysUser", fetch = FetchType.EAGER)
     private List<FinancialProviderEntity> financialProviders;
 }
