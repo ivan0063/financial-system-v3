@@ -44,8 +44,8 @@ public class DebtController {
         return ResponseEntity.ok(findAllDebtsUseCase.getActiveByDebtAccount(debtAccountCode));
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<List<Debt>> getActiveDebts(@PathVariable String email) {
+    @GetMapping("/all")
+    public ResponseEntity<List<Debt>> getActiveDebts(@RequestHeader String email) {
         return ResponseEntity.ok(this.debtRepository.findAllDebtsByUser(email));
     }
 }
