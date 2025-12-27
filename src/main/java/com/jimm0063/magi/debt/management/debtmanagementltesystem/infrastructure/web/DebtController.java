@@ -3,8 +3,10 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllDebtsUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.PaymentProjection;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.CreateDebtReq;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.ProjectionRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +18,13 @@ public class DebtController {
     private final DebtRepository debtRepository;
     private final DebtMapper debtMapper;
     private final FindAllDebtsUseCase findAllDebtsUseCase;
+    private final PaymentProjection paymentProjection;
 
-    public DebtController(DebtRepository debtRepository, DebtMapper debtMapper, FindAllDebtsUseCase findAllDebtsUseCase) {
+    public DebtController(DebtRepository debtRepository, DebtMapper debtMapper, FindAllDebtsUseCase findAllDebtsUseCase, PaymentProjection paymentProjection) {
         this.debtRepository = debtRepository;
         this.debtMapper = debtMapper;
         this.findAllDebtsUseCase = findAllDebtsUseCase;
+        this.paymentProjection = paymentProjection;
     }
 
     @PostMapping("/{debtAccountCode}")
@@ -47,5 +51,10 @@ public class DebtController {
     @GetMapping("/all")
     public ResponseEntity<List<Debt>> getActiveDebts(@RequestHeader String email) {
         return ResponseEntity.ok(this.debtRepository.findAllDebtsByUser(email));
+    }
+
+    @PostMapping("/projection")
+    public ResponseEntity<List> postDebtProjection(@RequestBody ProjectionRequest projectionRequest) {
+        return ResponseEntity.ok(this.paymentProjection.getDebtProjection(projectionRequest.getTo(), projectionRequest.getEmail(), projectionRequest.getDebtsToProject()));
     }
 }

@@ -5,14 +5,10 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FilterDebtsUseCase;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllDebtsUseCase;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.LoadDebtList;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.PayOffDebtAccountUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.*;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.utils.DebtComparatorUtil;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,18 +24,8 @@ public class DebtService implements FilterDebtsUseCase, PayOffDebtAccountUseCase
     @Override
     public List<Debt> filterAccountStatementDebts(List<Debt> accountStatementDebts, String debtAccountCode) {
         List<Debt> debtAccountDebts = this.debtRepository.findAllDebtsByDebtAccountAndActiveTrue(debtAccountCode);
-        //List<Debt> resultDebts = new ArrayList<>(accountStatementDebts);
 
-        List<Debt> resultDebts = DebtComparatorUtil.filterAccountStatementDebts(debtAccountDebts, accountStatementDebts);
-
-//        if (debtAccountDebts.isEmpty()) return accountStatementDebts;
-//
-//        for (Debt accountStatementDebt : accountStatementDebts)
-//            for (Debt debtAccountDebt : debtAccountDebts)
-//                if (DebtComparatorUtil.compareDebts(accountStatementDebt, debtAccountDebt))
-//                    resultDebts.remove(accountStatementDebt);
-
-        return resultDebts;
+        return DebtComparatorUtil.filterAccountStatementDebts(debtAccountDebts, accountStatementDebts);
     }
 
     @Override
