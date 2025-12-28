@@ -15,16 +15,16 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class FinancialStatusUseCaseService implements GetFinancialStatusUseCase {
+public class FinancialStatusService implements GetFinancialStatusUseCase {
     private final UserRepository userRepository;
     private final FinancialProviderRepository financialProviderRepository;
     private final DebtAccountRepository debtAccountRepository;
     private final DebtRepository debtRepository;
     private final FixedExpenseRepository fixedExpenseRepository;
 
-    public FinancialStatusUseCaseService(UserRepository userRepository, FinancialProviderRepository financialProviderRepository,
-                                         DebtAccountRepository debtAccountRepository, DebtRepository debtRepository,
-                                         FixedExpenseRepository fixedExpenseRepository) {
+    public FinancialStatusService(UserRepository userRepository, FinancialProviderRepository financialProviderRepository,
+                                  DebtAccountRepository debtAccountRepository, DebtRepository debtRepository,
+                                  FixedExpenseRepository fixedExpenseRepository) {
         this.userRepository = userRepository;
         this.financialProviderRepository = financialProviderRepository;
         this.debtAccountRepository = debtAccountRepository;

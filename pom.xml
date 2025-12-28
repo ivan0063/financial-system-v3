@@ -100,11 +100,14 @@
             <artifactId>pdfbox</artifactId>
             <version>3.0.3</version>
         </dependency>
-
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>3.0.0</version>
+        </dependency><dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>5.17.0</version>
         </dependency>
 
         <!--Excel Management -->
