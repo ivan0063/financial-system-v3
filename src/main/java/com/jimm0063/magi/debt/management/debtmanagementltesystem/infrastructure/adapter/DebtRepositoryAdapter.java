@@ -3,7 +3,7 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtAccountEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.DebtSysUserEntity;
@@ -66,8 +66,10 @@ public class DebtRepositoryAdapter implements DebtRepository {
 
     @Override
     public List<Debt> saveAll(List<Debt> debt) {
-        return this.debtJpaRepository.saveAllAndFlush(debt.stream().map(debtMapper::toEntity).toList())
-                .stream().map(debtMapper::toModel).collect(Collectors.toList());
+        List<DebtEntity> listEntity = debt.stream().map(debtMapper::toEntity).toList();
+        List<DebtEntity> savedList = this.debtJpaRepository.saveAllAndFlush(listEntity);
+        List<Debt> listModel = savedList.stream().map(debtMapper::toModel).toList();
+        return listModel;
     }
 
     @Override

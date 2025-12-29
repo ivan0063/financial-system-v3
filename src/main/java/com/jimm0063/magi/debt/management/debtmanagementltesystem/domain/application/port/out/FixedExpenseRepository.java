@@ -1,4 +1,4 @@
-package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in;
+package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out;
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
