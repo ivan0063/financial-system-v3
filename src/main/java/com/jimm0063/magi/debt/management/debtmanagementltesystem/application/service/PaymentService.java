@@ -7,10 +7,10 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptio
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Payment;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.PaymentRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.DoPayment;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.PaymentRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.DoPayment;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

@@ -20,4 +20,5 @@ public class Debt implements Serializable {
     private Instant updatedAt;
     private Boolean active;
     private DebtAccount debtAccount;
+    private String hashSum;
 }

@@ -2,9 +2,9 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.DebtAccountStatusDto;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.DebtAccountStatusUseCase;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllDebtAccountUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.DebtAccountStatusUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.FindAllDebtAccountUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.DebtAccountMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.CreateDebtAccountReq;
 import org.springframework.http.ResponseEntity;

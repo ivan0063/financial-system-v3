@@ -1,5 +1,6 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.*;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.AlmostCompletedDebtsDto;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.UserStatusDashboard;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
@@ -7,24 +8,23 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.*;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.GetFinancialStatusUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.GetFinancialStatusUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 
 @Service
-public class FinancialStatusUseCaseService implements GetFinancialStatusUseCase {
+public class FinancialStatusService implements GetFinancialStatusUseCase {
     private final UserRepository userRepository;
     private final FinancialProviderRepository financialProviderRepository;
     private final DebtAccountRepository debtAccountRepository;
     private final DebtRepository debtRepository;
     private final FixedExpenseRepository fixedExpenseRepository;
 
-    public FinancialStatusUseCaseService(UserRepository userRepository, FinancialProviderRepository financialProviderRepository,
-                                         DebtAccountRepository debtAccountRepository, DebtRepository debtRepository,
-                                         FixedExpenseRepository fixedExpenseRepository) {
+    public FinancialStatusService(UserRepository userRepository, FinancialProviderRepository financialProviderRepository,
+                                  DebtAccountRepository debtAccountRepository, DebtRepository debtRepository,
+                                  FixedExpenseRepository fixedExpenseRepository) {
         this.userRepository = userRepository;
         this.financialProviderRepository = financialProviderRepository;
         this.debtAccountRepository = debtAccountRepository;

@@ -2,10 +2,10 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FinancialProvider;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FinancialProviderCatalog;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FinancialProviderCatalogRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.FinancialProviderRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllFinancialProviderCatalogsUseCase;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.FindAllFinancialProviderUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.FinancialProviderCatalogRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.FinancialProviderRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.FindAllFinancialProviderCatalogsUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.FindAllFinancialProviderUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderCatalogMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.FinancialProviderMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.model.CreateFinancialProviderCatalogReq;

@@ -4,13 +4,13 @@ import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.De
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DebtComparatorUtil {
     public static boolean compareDebts(Debt debt1, Debt debt2) {
-        //debt1.getDescription().equals(debt2.getDescription()) &&
-        return debt1.getOperationDate().equals(debt2.getOperationDate()) &&
-                debt1.getMaxFinancingTerm().equals(debt2.getMaxFinancingTerm()) &&
-                debt1.getMonthlyPayment().equals(debt2.getMonthlyPayment());
+        if (Optional.ofNullable(debt1.getHashSum()).isEmpty() || Optional.ofNullable(debt2.getHashSum()).isEmpty()) return false;
+
+        return debt1.getHashSum().equals(debt2.getHashSum());
     }
 
     public static List<Debt> filterAccountStatementDebts(List<Debt> debtAccountDebts, List<Debt> accountStatementDebts) {

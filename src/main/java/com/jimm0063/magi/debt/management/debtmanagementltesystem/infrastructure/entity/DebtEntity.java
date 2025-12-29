@@ -36,4 +36,6 @@ public class DebtEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "debt_account", nullable = false)
     private DebtAccountEntity debtAccount;
+    @Column(name = "hash_sum")
+    private String hashSum;
 }

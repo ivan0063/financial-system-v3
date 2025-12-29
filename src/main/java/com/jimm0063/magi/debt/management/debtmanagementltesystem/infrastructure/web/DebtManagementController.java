@@ -1,12 +1,8 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.web;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtAccountRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.in.DebtRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.LoadDebtList;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.port.out.PayOffDebtAccountUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.LoadDebtList;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.PayOffDebtAccountUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
