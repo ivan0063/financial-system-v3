@@ -13,6 +13,8 @@ public class UserStatusDashboard {
     private Double salary;
     private Double savings;
     private Double monthlyDebtPaymentAmount;
+    private Double debtLoanAmount;
+    private Double debtForLifePlanAmount;
     private Double monthlyFixedExpensesAmount;
     private List<DebtAccount> userDebtAccounts;
     private List<AlmostCompletedDebtsDto> almostCompletedDebts;

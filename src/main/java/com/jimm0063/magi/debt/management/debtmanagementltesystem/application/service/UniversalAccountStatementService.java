@@ -1,8 +1,9 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.DebtTypeEnum;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -56,9 +58,15 @@ public class UniversalAccountStatementService implements AccountStatementDataExt
                         debt.setOperationDate(matcher.group(1).trim());
                         debt.setCurrentInstallment(Integer.parseInt(matcher.group(6)));
                         debt.setMaxFinancingTerm(Integer.parseInt(matcher.group(7)));
-                        debt.setOriginalAmount(Double.parseDouble(matcher.group(3).replace(",", "")));
-                        debt.setMonthlyPayment(Double.parseDouble(matcher.group(5).replace(",", "")));
+                        debt.setOriginalAmount(
+                                new BigDecimal(matcher.group(3).replace(",", ""))
+                        );
+
+                        debt.setMonthlyPayment(
+                                new BigDecimal(matcher.group(5).replace(",", ""))
+                        );
                         debt.setActive(true);
+                        debt.setDebtType(DebtTypeEnum.CARD);
 
                         debts.add(debt);
                     }

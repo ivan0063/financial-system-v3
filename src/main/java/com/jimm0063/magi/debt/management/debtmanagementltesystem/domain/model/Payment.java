@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Setter
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 public class Payment {
     private int id;
     private LocalDateTime createdAt;
-    private Double amountPaid;
+    private BigDecimal amountPaid;
     private DebtAccount debtAccount;
     @JsonIgnore
     private String backupData;

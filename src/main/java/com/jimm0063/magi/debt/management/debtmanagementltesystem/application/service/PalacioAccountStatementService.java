@@ -1,9 +1,10 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.DebtTypeEnum;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.PalacioMsiRowModel;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -183,13 +184,14 @@ public class PalacioAccountStatementService implements AccountStatementDataExtra
         // N de M
         setCurrentInstallmentSafe(d, r.getCurrentInstallment());
 
-        d.setMonthlyPayment(toDouble2(r.getMonthlyPayment()));
+        d.setMonthlyPayment((r.getMonthlyPayment()));
 
         // Not available in this section
-        d.setOriginalAmount(0d);
+        d.setOriginalAmount(new BigDecimal(0));
 
         // Optional: you might want to store saldo pendiente somewhere else; your v1 Debt doesn't have it.
         // If you added a field later, set it here.
+        d.setDebtType(DebtTypeEnum.CARD);
 
         d.setDebtAccount(debtAccount);
         return d;
@@ -210,9 +212,9 @@ public class PalacioAccountStatementService implements AccountStatementDataExtra
         return new BigDecimal(raw.replace(",", "").trim()).setScale(2, RoundingMode.HALF_UP);
     }
 
-    private static double toDouble2(BigDecimal v) {
-        if (v == null) return 0d;
-        return v.setScale(2, RoundingMode.HALF_UP).doubleValue();
+    private static BigDecimal toDoubletoDouble22(BigDecimal v) {
+        if (v == null) return new BigDecimal("0");
+        return v.setScale(2, RoundingMode.HALF_UP);
     }
 
     private static String normalizeSpaces(String s) {

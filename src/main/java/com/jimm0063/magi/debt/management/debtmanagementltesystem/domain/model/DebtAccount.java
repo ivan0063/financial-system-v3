@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Setter
@@ -13,7 +14,7 @@ public class DebtAccount implements Serializable {
     private String code;
     private String name;
     private Integer payDay;
-    private Double credit;
+    private BigDecimal credit;
     private Instant createdAt;
     private Instant updatedAt;
     private Boolean active;

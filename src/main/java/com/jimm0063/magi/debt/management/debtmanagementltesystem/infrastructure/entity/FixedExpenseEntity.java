@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Table(name = "fixed_expense")
 @Entity
@@ -12,11 +13,11 @@ import java.io.Serializable;
 @Getter
 public class FixedExpenseEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     @Column(name = "monthly_cost")
-    private Double monthlyCost;
+    private BigDecimal monthlyCost;
     @Column(name = "payment_day")
     private Integer paymentDay;
     private Boolean active;

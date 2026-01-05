@@ -2,18 +2,20 @@ package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.se
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.DoPayment;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.PaymentRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.NoDebtsException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Payment;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.PaymentRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.DoPayment;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -39,10 +41,10 @@ public class PaymentService implements DoPayment {
 
         if(debts.isEmpty()) throw new NoDebtsException("Debt account " + debtAccountCode + " not found");
 
-        Double amountToPay = debts
-                .stream()
-                .mapToDouble(Debt::getMonthlyPayment)
-                .sum();
+        BigDecimal amountToPay = debts.stream()
+                .map(Debt::getMonthlyPayment)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, RoundingMode.UNNECESSARY);
 
         // Update debts
         List<Debt> updatedDebts = debts.stream()

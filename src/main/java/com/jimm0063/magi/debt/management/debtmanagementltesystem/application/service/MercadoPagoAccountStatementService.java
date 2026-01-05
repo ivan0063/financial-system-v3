@@ -1,8 +1,9 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.DebtTypeEnum;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -13,7 +14,10 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -124,8 +128,8 @@ public class MercadoPagoAccountStatementService implements AccountStatementDataE
             String desc = cleanDescription(safe(m.group(2)));
             int current = parseIntSafe(m.group(3));
             int total = parseIntSafe(m.group(4));
-            Double monthlyPayment = parseMoneySafe(m.group(5)).doubleValue();
-            Double originalAmount = parseMoneySafe(m.group(6)).doubleValue(); // may be null
+            BigDecimal monthlyPayment = parseMoneySafe(m.group(5));
+            BigDecimal originalAmount = parseMoneySafe(m.group(6)); // may be null
 
             String operationDate = resolveOperationDate(dateStr, fallbackOpDate);
 
@@ -135,8 +139,9 @@ public class MercadoPagoAccountStatementService implements AccountStatementDataE
             d.setOperationDate(operationDate); // v1: String
             d.setMaxFinancingTerm(total);
             d.setCurrentInstallment(current);
-            d.setMonthlyPayment(monthlyPayment != null ? monthlyPayment : 0.0);
-            d.setOriginalAmount(originalAmount != null ? originalAmount : 0.0);
+            d.setMonthlyPayment(monthlyPayment != null ? monthlyPayment : BigDecimal.ZERO);
+            d.setOriginalAmount(originalAmount != null ? originalAmount : BigDecimal.ZERO);
+            d.setDebtType(DebtTypeEnum.CARD);
 
             // In v1 you store a code string, keep it aligned with your model:
             d.setDebtAccount(debtAccount);

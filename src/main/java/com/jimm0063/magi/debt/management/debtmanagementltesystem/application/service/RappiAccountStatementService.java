@@ -1,8 +1,9 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.DebtTypeEnum;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -14,7 +15,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-        import java.util.regex.Matcher;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service("RAPPI")
@@ -86,14 +87,15 @@ public class RappiAccountStatementService implements AccountStatementDataExtract
         // relation to account (depending on your mapping)
         // If Debt has String debtAccount:
         d.setDebtAccount(debtAccount);
+        d.setDebtType(DebtTypeEnum.CARD);
 
         // If you also keep audit timestamps in entity and your JPA fills them, ignore.
         return d;
     }
 
-    private static double toDouble2(BigDecimal v) {
-        if (v == null) return 0d;
-        return v.setScale(2, RoundingMode.HALF_UP).doubleValue();
+    private static BigDecimal toDouble2(BigDecimal v) {
+        if (v == null) return new BigDecimal(0);
+        return v.setScale(2, RoundingMode.HALF_UP);
     }
 
     private String extractText(MultipartFile accountStatementRappi) throws Exception {
