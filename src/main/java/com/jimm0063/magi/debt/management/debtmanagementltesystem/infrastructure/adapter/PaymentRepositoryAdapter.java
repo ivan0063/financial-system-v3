@@ -1,8 +1,8 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.adapter;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.PaymentRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Payment;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.PaymentRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.entity.PaymentEntity;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.mapper.PaymentMapper;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.persistence.PaymentJpaRepository;

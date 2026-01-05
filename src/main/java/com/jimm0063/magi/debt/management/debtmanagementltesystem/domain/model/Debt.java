@@ -1,9 +1,11 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.DebtTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Setter
@@ -14,11 +16,12 @@ public class Debt implements Serializable {
     private String operationDate;
     private Integer currentInstallment;
     private Integer maxFinancingTerm;
-    private Double originalAmount;
-    private Double monthlyPayment;
+    private BigDecimal originalAmount;
+    private BigDecimal monthlyPayment;
     private Instant createdAt;
     private Instant updatedAt;
     private Boolean active;
     private DebtAccount debtAccount;
+    private DebtTypeEnum debtType;
     private String hashSum;
 }

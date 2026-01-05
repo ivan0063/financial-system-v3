@@ -1,8 +1,9 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.DebtTypeEnum;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.AccountStatementDataExtractionUseCase;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -41,13 +44,14 @@ public class ExcelAccountStatementService implements AccountStatementDataExtract
                 String name = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue();
                 int monthsFinanced = (int) row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getNumericCellValue();
                 int monthsPaid = (int) row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getNumericCellValue();
-                double monthAmount = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getNumericCellValue();
+                BigDecimal monthAmount =
+                        BigDecimal.valueOf(
+                                row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)
+                                        .getNumericCellValue()
+                        ).setScale(2, RoundingMode.HALF_UP);
                 String type = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue();
 
                 if (name.isEmpty()) break;
-
-                // Calculate values
-                double initialDebtAmount = monthAmount * monthsFinanced;
 
                 // Create Debt object
                 Debt debt = new Debt();
@@ -58,6 +62,7 @@ public class ExcelAccountStatementService implements AccountStatementDataExtract
                 debt.setMaxFinancingTerm(monthsFinanced);
                 debt.setCurrentInstallment(monthsPaid);
                 debt.setDebtAccount(debtAccount);
+                debt.setDebtType(DebtTypeEnum.CARD);
 
                 debts.add(debt);
             }

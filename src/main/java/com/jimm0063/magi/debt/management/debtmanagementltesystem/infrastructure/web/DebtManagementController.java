@@ -1,8 +1,8 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.web;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.LoadDebtList;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.PayOffDebtAccountUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

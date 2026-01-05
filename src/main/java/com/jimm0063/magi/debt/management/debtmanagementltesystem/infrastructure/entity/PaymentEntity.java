@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,13 +13,13 @@ import java.time.LocalDateTime;
 @Setter @Getter
 public class PaymentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "amount_type")
-    private Double amountPaid;
+    private BigDecimal amountPaid;
     @Lob
     @Column(name = "backup_data")
     private String backupData;

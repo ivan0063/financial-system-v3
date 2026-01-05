@@ -1,14 +1,14 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.DebtAccountStatusUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.FindAllDebtAccountUseCase;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.AlmostCompletedDebtsDto;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.DebtAccountStatusDto;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.DebtAccountStatusUseCase;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.FindAllDebtAccountUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class DebtAccountService implements DebtAccountStatusUseCase, FindAllDebt
 
 
         Double monthAmount = debts.stream()
-                .mapToDouble(Debt::getMonthlyPayment)
+                .mapToDouble(debt -> debt.getMonthlyPayment().doubleValue())
                 .sum();
 
         DebtAccountStatusDto debtAccountStatusDto = new DebtAccountStatusDto();

@@ -1,15 +1,16 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.*;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtAccountRepository;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.DebtRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.utils.DebtComparatorUtil;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -63,9 +64,15 @@ public class DebtService implements FilterDebtsUseCase, PayOffDebtAccountUseCase
 
     @Override
     public String getHashSum(Debt debt, String debtAccountCode) {
-        String toHash = debtAccountCode.trim() + "|"
-                + debt.getMonthlyPayment() + "|"
-                + debt.getMaxFinancingTerm();
+        String monthAmountTrim = debt.getMonthlyPayment().setScale(2, RoundingMode.UNNECESSARY)
+                .movePointRight(2)
+                .toPlainString();
+
+        String toHash = String.join("|",
+                debtAccountCode.trim(),
+                monthAmountTrim,
+                debt.getMaxFinancingTerm().toString()
+        );
 
         try {
             // Get an instance of the SHA-256 algorithm

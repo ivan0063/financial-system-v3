@@ -1,8 +1,8 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.infrastructure.web;
 
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Payment;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.PaymentRepository;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.DoPayment;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.PaymentRepository;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Payment;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

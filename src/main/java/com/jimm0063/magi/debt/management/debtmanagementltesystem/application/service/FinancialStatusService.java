@@ -1,14 +1,15 @@
 package com.jimm0063.magi.debt.management.debtmanagementltesystem.application.service;
 
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.GetFinancialStatusUseCase;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.out.*;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.AlmostCompletedDebtsDto;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.dto.UserStatusDashboard;
+import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.enums.DebtTypeEnum;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.exceptions.EntityNotFoundException;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.Debt;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtAccount;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.DebtSysUser;
 import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.model.FixedExpense;
-import com.jimm0063.magi.debt.management.debtmanagementltesystem.domain.application.port.in.GetFinancialStatusUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -68,11 +69,22 @@ public class FinancialStatusService implements GetFinancialStatusUseCase {
 
         // calculate amount
         Double debtMonthAmount = userDebts.stream()
-                .mapToDouble(Debt::getMonthlyPayment)
+                .filter(debt -> debt.getDebtType().equals(DebtTypeEnum.CARD) || debt.getDebtType().equals(DebtTypeEnum.PEOPLE))
+                .mapToDouble(debt -> debt.getMonthlyPayment().doubleValue())
+                .sum();
+
+        Double debtLoanAmount = userDebts.stream()
+                .filter(debt -> debt.getDebtType().equals(DebtTypeEnum.LOAN))
+                .mapToDouble(debt -> debt.getMonthlyPayment().doubleValue())
+                .sum();
+
+        Double debtForLifePlanAmount = userDebts.stream()
+                .filter(debt -> debt.getDebtType().equals(DebtTypeEnum.FOR_LIFE_PLAN))
+                .mapToDouble(debt -> debt.getMonthlyPayment().doubleValue())
                 .sum();
 
         Double fixedExpensesMonthAmount = userFixedExpenses.stream()
-                .mapToDouble(FixedExpense::getMonthlyCost)
+                .mapToDouble(fixedExpense -> fixedExpense.getMonthlyCost().doubleValue())
                 .sum();
 
 
@@ -84,6 +96,8 @@ public class FinancialStatusService implements GetFinancialStatusUseCase {
         response.setUserDebtAccounts(userDebtAccounts);
 
         response.setMonthlyDebtPaymentAmount(debtMonthAmount);
+        response.setDebtForLifePlanAmount(debtForLifePlanAmount);
+        response.setDebtLoanAmount(debtLoanAmount);
         response.setMonthlyFixedExpensesAmount(fixedExpensesMonthAmount);
 
         return response;
