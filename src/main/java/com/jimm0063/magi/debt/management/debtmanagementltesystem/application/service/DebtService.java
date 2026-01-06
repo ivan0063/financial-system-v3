@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DebtService implements FilterDebtsUseCase, PayOffDebtAccountUseCase, FindAllDebtsUseCase, LoadDebtList, DebtDuplicationPreventUseCase {
@@ -53,6 +54,9 @@ public class DebtService implements FilterDebtsUseCase, PayOffDebtAccountUseCase
         DebtAccount debtAccount = this.debtAccountRepository.findDebtAccountByCodeAndActiveTrue(debtAccountCode)
                 .orElseThrow(() -> new EntityNotFoundException("Debt Account " + debtAccountCode));
         List<Debt> debtAccountDebts = debtRepository.findAllDebtsByDebtAccountAndActiveTrue(debtAccountCode);
+        debts.stream()
+                .filter(debt -> Objects.isNull(debt.getHashSum()))
+                .forEach(debt -> debt.setHashSum(this.getHashSum(debt, debtAccountCode)));
 
         List<Debt> debtsFound = DebtComparatorUtil.filterAccountStatementDebts(debtAccountDebts, debts)
                 .stream()
