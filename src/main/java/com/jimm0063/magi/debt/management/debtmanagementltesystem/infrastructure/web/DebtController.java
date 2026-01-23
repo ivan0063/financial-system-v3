@@ -51,7 +51,7 @@ public class DebtController {
         return ResponseEntity.ok(findAllDebtsUseCase.getActiveByDebtAccount(debtAccountCode));
     }
 
-    @GetMapping("/validate/{debtAccountCode}")
+    @PostMapping("/validate/{debtAccountCode}")
     public ResponseEntity<List<Debt>> validateDebtAccountDebts(@PathVariable String debtAccountCode, @RequestBody List<Debt> debts) {
         return ResponseEntity.ok(this.filterDebtsUseCase.filterAccountStatementDebts(debts, debtAccountCode));
     }
